@@ -11,6 +11,7 @@ public class Our_Vector3 : MonoBehaviour {
         Y = y;
         Z = z;
     }
+    //Poder acceder a cada una de las componentes del vector( Velocity.x...)
     public float getX(){
 		return X;
 	}
@@ -44,4 +45,6 @@ public class Our_Vector3 : MonoBehaviour {
 		Y = Y - vector_b.getY ();
 		Z = Z - vector_b.getZ ();
 	} 
+    //Poder dividir un vector 3 entre float
+    //Poder multiplicar un vector 3 por float
 }

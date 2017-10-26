@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallPhysics : MonoBehaviour
 {
     float PI = 3.1415f;
-    Our_Vector3 gravity = new Our_Vector3();
+    float gravity = 9.81f;
 
     Our_Vector3 position;
     Our_Vector3 lVelocity;
@@ -25,6 +25,8 @@ public class BallPhysics : MonoBehaviour
     Our_Vector3 fMagnus;
     Our_Vector3 fGravity;
     Our_Vector3 fTau;
+    Our_Vector3 fP;
+    Our_Vector3 rad; // este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
 
     Our_Vector3 fTotal; // Aqui guardamos la suma de todas las fuerzas.
 
@@ -36,22 +38,29 @@ public class BallPhysics : MonoBehaviour
 
     void Start()
     {
-        gravity.setVariables(0.0f,0.0f,-9.8f);
-        /*TO DO - Aplicar formulas de angulo y diagramas de fuerza en el suelo
-         Calcular direccion Tau
-         Calcular wVelocity (Inicial)
-         Calcular lVelocity (Inicial)
-         */
+        inertiaMoment = (2 / 3) * mass * (radius * radius);
+        Our_Vector3 v3;
+      
+        //TO DO - Aplicar formulas de angulo y diagramas de fuerza en el suelo
+        // Calcular direccion Tau
+        //fTau = v3.CrossProduct()
+        //Calcular wVelocity (Inicial)
+       // wVelocity = fTau / inertiaMoment * dt;
+        // Calcular lVelocity (Inicial)
+        
+         
     }
 
     void Update()
     {
-        /*TO DO - Aplicar formulas de diagrama de fuerzas en el aire
-         Calcular fGravity
-         Calcular fDrag
-         Calcular fMagnus
-         Agrupar fTotal
-         */
+        //TO DO - Aplicar formulas de diagrama de fuerzas en el aire
+        //Calcular fGravity
+        fGravity.setVariables(0, 0, -mass * gravity);
+         //Calcular fDrag
+
+         //Calcular fMagnus
+         //Agrupar fTotal
+         
 
         //transform.position.x *= fTotal.getX();
         //transform.position.y *= fTotal.getY();
