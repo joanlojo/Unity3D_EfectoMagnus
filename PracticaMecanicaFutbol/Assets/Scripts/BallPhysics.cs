@@ -16,7 +16,7 @@ public class BallPhysics : MonoBehaviour
 
     float alpha;
     float airDensity;
-    float dt; //tiempo de chute
+    float dt; //Tiempo de chute
     float Cd; //Coeficiente drag.
     float Cm; //Coeficiente magnus.
     float inertiaMoment;
@@ -26,9 +26,9 @@ public class BallPhysics : MonoBehaviour
     Our_Vector3 fGravity;
     Our_Vector3 fTau;
     Our_Vector3 fP;
-    Our_Vector3 rad; // este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
+    Our_Vector3 rad; //Este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
 
-    Our_Vector3 fTotal; // Aqui guardamos la suma de todas las fuerzas.
+    Our_Vector3 fTotal; //Aqui guardamos la suma de todas las fuerzas.
 
 
     float Area()
@@ -39,14 +39,15 @@ public class BallPhysics : MonoBehaviour
     void Start()
     {
         inertiaMoment = (2 / 3) * mass * (radius * radius);
-        Our_Vector3 v3;
+        Our_Vector3 v3 = new Our_Vector3(0,0,0); //Asi se inicializa un Our_Vector.
+        v3.x = 10; //Esto ya funciona.
       
         //TO DO - Aplicar formulas de angulo y diagramas de fuerza en el suelo
         // Calcular direccion Tau
         //fTau = v3.CrossProduct()
         //Calcular wVelocity (Inicial)
-       // wVelocity = fTau / inertiaMoment * dt;
-        // Calcular lVelocity (Inicial)
+        //wVelocity = fTau / inertiaMoment * dt;
+        //Calcular lVelocity (Inicial)
         
          
     }
@@ -55,15 +56,18 @@ public class BallPhysics : MonoBehaviour
     {
         //TO DO - Aplicar formulas de diagrama de fuerzas en el aire
         //Calcular fGravity
-        fGravity.setVariables(0, 0, -mass * gravity);
-         //Calcular fDrag
 
-         //Calcular fMagnus
-         //Agrupar fTotal
+        //fGravity.setVariables(0, 0, -mass * gravity);
+        fGravity = new Our_Vector3(0, 0, -mass * gravity);
+
+        //Calcular fDrag
+
+        //Calcular fMagnus
+        //Agrupar fTotal
          
 
-        //transform.position.x *= fTotal.getX();
-        //transform.position.y *= fTotal.getY();
-        //transform.position.z *= fTotal.getZ();
+        //transform.position.x *= fTotal.x;
+        //transform.position.y *= fTotal.y;
+        //transform.position.z *= fTotal.z;
     }
 }
