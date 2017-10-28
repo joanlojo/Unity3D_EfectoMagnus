@@ -18,7 +18,7 @@ public class Our_Vector3 : MonoBehaviour {
 	public float DotProduct(Our_Vector3 vector_b){
 		return (x * vector_b.x) + (y * vector_b.y) + (z * vector_b.z);
 	}
-	public void Normalize(Our_Vector3 vector_b){ //El resultado sobreescribe el vector sobre el que se hace el.Normalize
+	public void Normalize(){ //El resultado sobreescribe el vector sobre el que se hace el.Normalize
         float temp_VectorModule = this.Module();
         x = x / temp_VectorModule;
         y = y / temp_VectorModule;
