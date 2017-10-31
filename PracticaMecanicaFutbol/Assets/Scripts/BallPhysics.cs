@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BallPhysics : MonoBehaviour
 {
     float PI = 3.1415f;
     float gravity = 9.81f;
 
-    Our_Vector3 position;
-    Our_Vector3 lVelocity;
-    Our_Vector3 wVelocity;
+    //public Transform sphere;
+    public Transform VectorDireccion;
+    public Slider barra;
+
+    Our_Vector3 position = new Our_Vector3(0, 0, 0);
+    Our_Vector3 lVelocity = new Our_Vector3(0, 0, 0);
+    Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
-
     float radius;
-
 
     float alpha;
     float airDensity;
@@ -24,25 +27,37 @@ public class BallPhysics : MonoBehaviour
     float Cm; //Coeficiente magnus.
     float inertiaMoment;
 
+    public Our_Vector3 getKickPosition;
+
     Our_Vector3 fDrag;
     Our_Vector3 fMagnus;
     Our_Vector3 fGravity;
-    Our_Vector3 fTau;
-    Our_Vector3 fP;
+    Our_Vector3 fTau = new Our_Vector3(0, 0, 0);
+    Our_Vector3 fP = new Our_Vector3(0, 0, 0);
     Our_Vector3 rad; //Este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
 
-    Our_Vector3 fTotal; //Aqui guardamos la suma de todas las fuerzas.
+    Our_Vector3 fTotal = new Our_Vector3(0, 0, 0); //Aqui guardamos la suma de todas las fuerzas.
 
-
-    float Area()
-    {
+    float Area() {
         return (radius * radius) * PI;
     }
 
     void Start()
     {
-        //GetKickPosition getKickPosition;
+        fGravity = new Our_Vector3(0, 0, -mass * gravity);
+        fMagnus = new Our_Vector3(0, 0, 0);
+        fDrag = new Our_Vector3(0, 0, 0);
+
         //rad = position - getKickPosition.fromBallCoordinates; //esto creo que cuando fromBallCoordinates sea un OurVector funcionara 
+        Debug.Log(GetComponent<GetKickPosition>().newPelota.transform.position.x);
+
+        getKickPosition.x = GetComponent<GetKickPosition>().newPelota.transform.position.x;
+        getKickPosition.y = GetComponent<GetKickPosition>().newPelota.transform.position.y;
+        getKickPosition.z = GetComponent<GetKickPosition>().newPelota.transform.position.z;
+
+        fP.x = getKickPosition.x - VectorDireccion.transform.position.x;
+        fP.y = getKickPosition.y - VectorDireccion.transform.position.y;
+        fP.z = getKickPosition.z - VectorDireccion.transform.position.z;
 
         float area = Area();
         airDensity = 1.23f;
@@ -54,8 +69,7 @@ public class BallPhysics : MonoBehaviour
 
         inertiaMoment = (2 / 3) * mass * (radius * radius);
         Kd = (1 / 2) * airDensity * Cd * area;
-        Km = (1 / 2) * airDensity * Cm * area;
-        // Our_Vector3 vCross = new Our_Vector3(0,0,0); //Asi se inicializa un Our_Vector.   
+        Km = (1 / 2) * airDensity * Cm * area;  
         // Calcular direccion Tau
         fTau = new Our_Vector3(0, 0, 0);
         fTau = rad.CrossProduct(fP); //hay que asignarle la barra de fuerza a fP
@@ -72,27 +86,37 @@ public class BallPhysics : MonoBehaviour
 
     void Update()
     {
+        fP.module = barra.value;
+       // Debug.Log(VectorDireccion.transform.position.z);
+        if (Input.GetKey(KeyCode.Space))
+        {
+            startKick();
+        }
+    }
+
+    void startKick()
+    {
         //Calcular fGravity
-        fGravity = new Our_Vector3(0, 0, -mass * gravity);
+
         //Calcular fDrag
-        fDrag = new Our_Vector3(0, 0, 0);
         fDrag.x = -Kd * lVelocity.Module() * lVelocity.x;
         fDrag.y = -Kd * lVelocity.Module() * lVelocity.y;
         fDrag.z = -Kd * lVelocity.Module() * lVelocity.z;
         //Calcular fMagnus
-        fMagnus = new Our_Vector3(0, 0, 0);
+
         wVelocity.Normalize();
         fMagnus.x = Km * lVelocity.Module() * (wVelocity.y * lVelocity.z - lVelocity.y * wVelocity.z);
         fMagnus.y = Km * lVelocity.Module() * (wVelocity.x * lVelocity.z - lVelocity.x * wVelocity.z);
         fMagnus.z = Km * lVelocity.Module() * (wVelocity.x * lVelocity.y - lVelocity.x * wVelocity.y);
         //Agrupar fTotal
-        fTotal = new Our_Vector3(0, 0, 0);
+        //fTotal = new Our_Vector3(0, 0, 0);
         fTotal.x = fDrag.x + fMagnus.x;
         fTotal.y = -fDrag.y + fMagnus.y;
         fTotal.z = -fDrag.z + fMagnus.z + fGravity.z;
 
-        //transform.position.x *= fTotal.x;
-        //transform.position.y *= fTotal.y;
-        //transform.position.z *= fTotal.z;
+        //
+        Vector3 temporal = new Vector3(fTotal.x, fTotal.y, fTotal.z);
+        //
+        transform.position += temporal;
     }
 }

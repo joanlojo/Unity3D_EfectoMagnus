@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Our_Vector3 : MonoBehaviour {
+public class Our_Vector3 {
 
 	public float x, y, z;
+    public float module;
     public Our_Vector3(float _x, float _y, float _z) { //Constructor -> hay que pasarle los 3 componentes.
         //NO puedes inicializar un Our_Vector3 vacio, sin pasarle ningun valor.
         x = _x;
         y = _y;
         z = _z;
+        module = 0;
     }
 	public Our_Vector3 CrossProduct(Our_Vector3 vector_b){ //Devuelve un vector nuevo sin sobreescribir ningun resultado
 		Our_Vector3 res = new Our_Vector3(y*vector_b.z - z*vector_b.y,z*vector_b.x - x*vector_b.z,x*vector_b.y - y*vector_b.x);
