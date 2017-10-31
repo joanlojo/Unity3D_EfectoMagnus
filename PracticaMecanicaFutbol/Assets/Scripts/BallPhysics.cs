@@ -81,7 +81,6 @@ public class BallPhysics : MonoBehaviour
         lVelocity.x = (fP.x * dt) / mass;
         lVelocity.y = (fP.y * dt) / mass;
         lVelocity.z = (fP.z * dt) / mass;
-
     }
 
     void Update()
