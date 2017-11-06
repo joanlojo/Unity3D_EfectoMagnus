@@ -91,11 +91,15 @@ public class BallPhysics : MonoBehaviour
         {
             startKick();
         }
+        //
+        //Vector3 temporal = new Vector3(fTotal.x, fTotal.y, fTotal.z);
+        //
+        //transform.position += temporal;
     }
 
     void startKick()
     {
-        //Calcular fGravity
+        //Actualizar la velocidada lineal
 
         //Calcular fDrag
         fDrag.x = -Kd * lVelocity.Module() * lVelocity.x;
@@ -107,15 +111,13 @@ public class BallPhysics : MonoBehaviour
         fMagnus.x = Km * lVelocity.Module() * (wVelocity.y * lVelocity.z - lVelocity.y * wVelocity.z);
         fMagnus.y = Km * lVelocity.Module() * (wVelocity.x * lVelocity.z - lVelocity.x * wVelocity.z);
         fMagnus.z = Km * lVelocity.Module() * (wVelocity.x * lVelocity.y - lVelocity.x * wVelocity.y);
+
         //Agrupar fTotal
         //fTotal = new Our_Vector3(0, 0, 0);
         fTotal.x = fDrag.x + fMagnus.x;
         fTotal.y = -fDrag.y + fMagnus.y;
         fTotal.z = -fDrag.z + fMagnus.z + fGravity.z;
 
-        //
-        Vector3 temporal = new Vector3(fTotal.x, fTotal.y, fTotal.z);
-        //
-        transform.position += temporal;
+        //asignar la fuerza a transform.position
     }
 }
