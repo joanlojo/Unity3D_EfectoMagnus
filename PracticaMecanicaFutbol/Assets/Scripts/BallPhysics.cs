@@ -44,11 +44,16 @@ public class BallPhysics : MonoBehaviour
 
     void Start()
     {
+        getKickPosition = GameObject.Find("Pelota").GetComponent<GetKickPosition>().fromBallCoordinates; //Acceder a una propiedad de otro script en un objeto.
+
         fGravity = new Our_Vector3(0, 0, -mass * gravity);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);
 
-        //rad = position - getKickPosition.fromBallCoordinates; //esto creo que cuando fromBallCoordinates sea un OurVector funcionara 
+        rad.x = position.x - getKickPosition.x; //esto creo que cuando fromBallCoordinates sea un OurVector funcionara 
+        rad.y = position.y - getKickPosition.y;
+        rad.z = position.z - getKickPosition.z;
+
         Debug.Log(GetComponent<GetKickPosition>().newPelota.transform.position.x);
 
         getKickPosition.x = GetComponent<GetKickPosition>().newPelota.transform.position.x;
@@ -70,6 +75,7 @@ public class BallPhysics : MonoBehaviour
         inertiaMoment = (2 / 3) * mass * (radius * radius);
         Kd = (1 / 2) * airDensity * Cd * area;
         Km = (1 / 2) * airDensity * Cm * area;  
+
         // Calcular direccion Tau
         fTau = new Our_Vector3(0, 0, 0);
         fTau = rad.CrossProduct(fP); //hay que asignarle la barra de fuerza a fP
@@ -86,15 +92,13 @@ public class BallPhysics : MonoBehaviour
     void Update()
     {
         fP.module = barra.value;
-       // Debug.Log(VectorDireccion.transform.position.z);
+        // Debug.Log(VectorDireccion.transform.position.z);
         if (Input.GetKey(KeyCode.Space))
         {
             startKick();
         }
-        //
-        //Vector3 temporal = new Vector3(fTotal.x, fTotal.y, fTotal.z);
-        //
-        //transform.position += temporal;
+        
+        transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
     }
 
     void startKick()
@@ -119,5 +123,6 @@ public class BallPhysics : MonoBehaviour
         fTotal.z = -fDrag.z + fMagnus.z + fGravity.z;
 
         //asignar la fuerza a transform.position
+        transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
     }
 }
