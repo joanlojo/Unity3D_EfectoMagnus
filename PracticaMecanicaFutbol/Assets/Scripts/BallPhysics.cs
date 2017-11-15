@@ -77,7 +77,7 @@ public class BallPhysics : MonoBehaviour
         Kd = (1 / 2) * airDensity * Cd * area;
         Km = (1 / 2) * airDensity * Cm * area;  
 
-        // Calcular direccion Tau
+        //Calcular direccion Tau
         fTau = new Our_Vector3(0, 0, 0);
         fTau = rad.CrossProduct(fP); //hay que asignarle la barra de fuerza a fP
         //Calcular wVelocity (Inicial)
@@ -110,7 +110,9 @@ public class BallPhysics : MonoBehaviour
         fDrag.x = -Kd * lVelocityFin.Module() * lVelocityFin.x;
         fDrag.y = -Kd * lVelocityFin.Module() * lVelocityFin.y;
         fDrag.z = -Kd * lVelocityFin.Module() * lVelocityFin.z;
-        //lVelocityFin = (fDrag.x*dt);
+        lVelocityFin.x = (fDrag.x*dt);
+        lVelocityFin.y = (fDrag.y * dt);
+        lVelocityFin.z = (fDrag.z * dt);
         //Calcular fMagnus
 
         wVelocity.Normalize();
@@ -125,6 +127,8 @@ public class BallPhysics : MonoBehaviour
         fTotal.z = -fDrag.z + fMagnus.z + fGravity.z;
 
         //asignar la fuerza a transform.position
-        transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
+       // transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
+
+        transform.position.Set(fTotal.x, fTotal.y, fTotal.z); //las propiedades get y set podemos usarlas
     }
 }
