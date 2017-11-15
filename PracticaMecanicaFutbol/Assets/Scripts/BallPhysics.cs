@@ -13,7 +13,8 @@ public class BallPhysics : MonoBehaviour
     public Slider barra;
 
     Our_Vector3 position = new Our_Vector3(0, 0, 0);
-    Our_Vector3 lVelocity = new Our_Vector3(0, 0, 0);
+    Our_Vector3 lVelocityInit = new Our_Vector3(0, 0, 0);
+    Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
     Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
     float radius;
@@ -29,8 +30,8 @@ public class BallPhysics : MonoBehaviour
 
     public Our_Vector3 getKickPosition;
 
-    Our_Vector3 fDrag;
-    Our_Vector3 fMagnus;
+    Our_Vector3 fDrag = new Our_Vector3(0, 0, 0);
+    Our_Vector3 fMagnus = new Our_Vector3(0, 0, 0);
     Our_Vector3 fGravity;
     Our_Vector3 fTau = new Our_Vector3(0, 0, 0);
     Our_Vector3 fP = new Our_Vector3(0, 0, 0);
@@ -84,9 +85,9 @@ public class BallPhysics : MonoBehaviour
         wVelocity.y = fTau.y * inertiaMoment * dt;
         wVelocity.z = fTau.z * inertiaMoment * dt;
         //Calcular lVelocity (Inicial)
-        lVelocity.x = (fP.x * dt) / mass;
-        lVelocity.y = (fP.y * dt) / mass;
-        lVelocity.z = (fP.z * dt) / mass;
+        lVelocityInit.x = (fP.x * dt) / mass;
+        lVelocityInit.y = (fP.y * dt) / mass;
+        lVelocityInit.z = (fP.z * dt) / mass;
     }
 
     void Update()
@@ -104,17 +105,18 @@ public class BallPhysics : MonoBehaviour
     void startKick()
     {
         //Actualizar la velocidada lineal
-
+       
         //Calcular fDrag
-        fDrag.x = -Kd * lVelocity.Module() * lVelocity.x;
-        fDrag.y = -Kd * lVelocity.Module() * lVelocity.y;
-        fDrag.z = -Kd * lVelocity.Module() * lVelocity.z;
+        fDrag.x = -Kd * lVelocityFin.Module() * lVelocityFin.x;
+        fDrag.y = -Kd * lVelocityFin.Module() * lVelocityFin.y;
+        fDrag.z = -Kd * lVelocityFin.Module() * lVelocityFin.z;
+        //lVelocityFin = (fDrag.x*dt);
         //Calcular fMagnus
 
         wVelocity.Normalize();
-        fMagnus.x = Km * lVelocity.Module() * (wVelocity.y * lVelocity.z - lVelocity.y * wVelocity.z);
-        fMagnus.y = Km * lVelocity.Module() * (wVelocity.x * lVelocity.z - lVelocity.x * wVelocity.z);
-        fMagnus.z = Km * lVelocity.Module() * (wVelocity.x * lVelocity.y - lVelocity.x * wVelocity.y);
+        fMagnus.x = Km * lVelocityFin.Module() * (wVelocity.y * lVelocityFin.z - lVelocityFin.y * wVelocity.z);
+        fMagnus.y = Km * lVelocityFin.Module() * (wVelocity.x * lVelocityFin.z - lVelocityFin.x * wVelocity.z);
+        fMagnus.z = Km * lVelocityFin.Module() * (wVelocity.x * lVelocityFin.y - lVelocityFin.x * wVelocity.y);
 
         //Agrupar fTotal
         //fTotal = new Our_Vector3(0, 0, 0);
