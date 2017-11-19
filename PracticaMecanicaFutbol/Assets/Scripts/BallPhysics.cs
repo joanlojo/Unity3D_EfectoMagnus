@@ -29,6 +29,7 @@ public class BallPhysics : MonoBehaviour
     float inertiaMoment;
 
     public Our_Vector3 getKickPosition;
+   // public Our_Vector3 getKickPosition;
 
     Our_Vector3 fDrag = new Our_Vector3(0, 0, 0);
     Our_Vector3 fMagnus = new Our_Vector3(0, 0, 0);
@@ -45,25 +46,28 @@ public class BallPhysics : MonoBehaviour
 
     void Start()
     {
-        getKickPosition = GameObject.Find("Pelota").GetComponent<GetKickPosition>().fromBallCoordinates; //Acceder a una propiedad de otro script en un objeto.
+        getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro
+      //  getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Direccion del disparo
 
         fGravity = new Our_Vector3(0, 0, -mass * gravity);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);
 
-        rad.x = position.x - getKickPosition.x; //esto creo que cuando fromBallCoordinates sea un OurVector funcionara 
+        rad.x = position.x - getKickPosition.x; //esto creo que cuando fromBallCoordinates sea un OurVector funcionara //al reves
         rad.y = position.y - getKickPosition.y;
         rad.z = position.z - getKickPosition.z;
 
         Debug.Log(GetComponent<GetKickPosition>().newPelota.transform.position.x);
 
-        getKickPosition.x = GetComponent<GetKickPosition>().newPelota.transform.position.x;
-        getKickPosition.y = GetComponent<GetKickPosition>().newPelota.transform.position.y;
-        getKickPosition.z = GetComponent<GetKickPosition>().newPelota.transform.position.z;
+        //getKickPosition.x = GetComponent<GetKickPosition>().newPelota.transform.position.x;
+        //getKickPosition.y = GetComponent<GetKickPosition>().newPelota.transform.position.y;
+        //getKickPosition.z = GetComponent<GetKickPosition>().newPelota.transform.position.z;
 
-        fP.x = getKickPosition.x - VectorDireccion.transform.position.x;
+        fP.x = getKickPosition.x - VectorDireccion.transform.position.x;//solo vdir
         fP.y = getKickPosition.y - VectorDireccion.transform.position.y;
         fP.z = getKickPosition.z - VectorDireccion.transform.position.z;
+
+        Debug.Log(VectorDireccion.transform.position.z);
 
         float area = Area();
         airDensity = 1.23f;
@@ -81,18 +85,20 @@ public class BallPhysics : MonoBehaviour
         fTau = new Our_Vector3(0, 0, 0);
         fTau = rad.CrossProduct(fP); //hay que asignarle la barra de fuerza a fP
         //Calcular wVelocity (Inicial)
-        wVelocity.x = fTau.x * inertiaMoment * dt;
-        wVelocity.y = fTau.y * inertiaMoment * dt;
-        wVelocity.z = fTau.z * inertiaMoment * dt;
+        wVelocity.x = fTau.x / inertiaMoment * dt;
+        wVelocity.y = fTau.y / inertiaMoment * dt;
+        wVelocity.z = fTau.z / inertiaMoment * dt;
         //Calcular lVelocity (Inicial)
         lVelocityInit.x = (fP.x * dt) / mass;
         lVelocityInit.y = (fP.y * dt) / mass;
         lVelocityInit.z = (fP.z * dt) / mass;
+
+        //aplicar la rotacion siemrep es la misma
     }
 
     void Update()
     {
-        fP.module = barra.value;
+       /* fP.module = barra.value;
         // Debug.Log(VectorDireccion.transform.position.z);
         if (Input.GetKey(KeyCode.Space))
         {
@@ -100,19 +106,16 @@ public class BallPhysics : MonoBehaviour
         }
         
         transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
-    }
+    */}
 
     void startKick()
     {
-        //Actualizar la velocidada lineal
-       
+      
         //Calcular fDrag
         fDrag.x = -Kd * lVelocityFin.Module() * lVelocityFin.x;
         fDrag.y = -Kd * lVelocityFin.Module() * lVelocityFin.y;
         fDrag.z = -Kd * lVelocityFin.Module() * lVelocityFin.z;
-        lVelocityFin.x = (fDrag.x*dt);
-        lVelocityFin.y = (fDrag.y * dt);
-        lVelocityFin.z = (fDrag.z * dt);
+
         //Calcular fMagnus
 
         wVelocity.Normalize();
@@ -123,11 +126,16 @@ public class BallPhysics : MonoBehaviour
         //Agrupar fTotal
         //fTotal = new Our_Vector3(0, 0, 0);
         fTotal.x = fDrag.x + fMagnus.x;
-        fTotal.y = -fDrag.y + fMagnus.y;
-        fTotal.z = -fDrag.z + fMagnus.z + fGravity.z;
+        fTotal.y = fDrag.y + fMagnus.y;
+        fTotal.z = fDrag.z + fMagnus.z + fGravity.z;
 
-        //asignar la fuerza a transform.position
-       // transform.position = new Vector3(fTotal.x, fTotal.y, fTotal.z);
+        //Actualizar la velocidada lineal
+        //1 vel = inicial, depsues por cada iteracion es la anteriorr calculada
+        //vanterior = lVelocityFin
+        //act v anterior
+        //modificar lVelocityFin = vanterior
+
+        //derivada de posicion
 
         transform.position.Set(fTotal.x, fTotal.y, fTotal.z); //las propiedades get y set podemos usarlas
     }
