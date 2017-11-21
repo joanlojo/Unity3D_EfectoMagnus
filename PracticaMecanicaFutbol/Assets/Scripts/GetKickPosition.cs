@@ -7,11 +7,11 @@ public class GetKickPosition : MonoBehaviour {
 	public GameObject newPelota;
     public GameObject VectorDireccion;
 	private RaycastHit colision;
-    public Our_Vector3 fromBallCoordinates;
+    public Our_Vector3 fromBallCoordinates = new Our_Vector3(0, 0, 0);
 
     void Start () {
-		
-	}
+        //getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro
+    }
 	
 	void Update () {
 		if(Input.GetMouseButtonDown(0)){
@@ -25,7 +25,7 @@ public class GetKickPosition : MonoBehaviour {
                 fromBallCoordinates.y = newPelota.transform.position.y - colision.transform.position.y;
                 fromBallCoordinates.z = newPelota.transform.position.z - colision.transform.position.z;
 
-                Debug.Log ("Punto de colision respecto a la pelota"+ fromBallCoordinates);
+                //Debug.Log (fromBallCoordinates.x);
 			}
 		}
 

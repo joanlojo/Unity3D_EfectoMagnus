@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45136082, g: 0.50093204, b: 0.5727287, a: 1}
+  m_IndirectSpecularColor: {r: 0.45136058, g: 0.50093126, b: 0.5727277, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -277,15 +277,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalScale.x
-      value: 14.537097
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalScale.y
-      value: 14.537095
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalScale.z
-      value: 14.537095
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -633,19 +633,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: -0.70563936
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.045531876
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.04553189
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.70563936
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_RootOrder
@@ -667,6 +667,18 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 00b4312c15a8a294dbdf13fabbda8537, type: 2}
+    - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -97.383995
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.99999
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
   m_IsPrefabParent: 0
@@ -753,7 +765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c656683755b47041b05aec970b4cda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphere: {fileID: 0}
   VectorDireccion: {fileID: 86828416}
   barra: {fileID: 1725396510}
 --- !u!135 &1157216206
@@ -797,7 +808,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newPelota: {fileID: 63581007}
   VectorDireccion: {fileID: 86828412}
-  fromBallCoordinates: {x: 0, y: 0, z: 0}
 --- !u!4 &1301367010
 Transform:
   m_ObjectHideFlags: 0
