@@ -645,6 +645,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100098, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
   m_IsPrefabParent: 0
@@ -690,8 +698,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Axis: {x: 0, y: 0, z: 1}
-  MinAngle: 5
-  MaxAngle: 112
+  MinAngle: 0
+  MaxAngle: 100
   StartOffset: {x: 0, y: 0, z: 0}
   ZeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
@@ -1105,12 +1113,11 @@ MonoBehaviour:
   Solution:
   - 0
   - 0
-  - 0
   Effector: {fileID: 1066207608}
   Destination: {fileID: 1157216203}
   DistanceFromDestination: 0
   DeltaGradient: 0.1
-  LearningRate: 0.1
+  LearningRate: 25
   StopThreshold: 0
   SlowdownThreshold: 0
   DebugDraw: 1

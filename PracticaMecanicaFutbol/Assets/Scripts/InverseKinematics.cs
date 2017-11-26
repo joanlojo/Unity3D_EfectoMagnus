@@ -38,7 +38,7 @@ namespace ENTICourse.IK
         public Transform BaseJoint;
 
 
-      //  [ReadOnly]
+      // [ReadOnly]
         public RobotJoints[] Joints = null;
         // The current angles
         //[ReadOnly]
@@ -55,7 +55,7 @@ namespace ENTICourse.IK
         [Range(0, 1f)]
         public float DeltaGradient = 0.1f; // Used to simulate gradient (degrees)
         [Range(0, 100f)]
-        public float LearningRate = 0.1f; // How much we move depending on the gradient
+        public float LearningRate = 0.25f; // How much we move depending on the gradient
 
         [Space()]
         [Range(0, 0.25f)]
@@ -82,7 +82,7 @@ namespace ENTICourse.IK
             ErrorFunction = DistanceFromTarget;
         }
 
-       // [ExposeInEditor(RuntimeOnly = false)]
+        //[ExposeInEditor(RuntimeOnly = false)]
         public void GetJoints()
         {
             Joints = BaseJoint.GetComponentsInChildren<RobotJoints>();
