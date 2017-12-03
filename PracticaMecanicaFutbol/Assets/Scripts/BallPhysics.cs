@@ -134,7 +134,7 @@ public class BallPhysics : MonoBehaviour
         if (startKicked == true){
             transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z),2.0f);
             //transform.rotation = q;
-            //Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(dirfP.x,dirfP.y,dirfP.z),Color.black);
+            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z),Color.black);
             Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);
         }
         /*    //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
