@@ -43,6 +43,8 @@ public class BallPhysics : MonoBehaviour
 
     Our_Vector3 fTotal = new Our_Vector3(0, 0, 0); //Aqui guardamos la suma de todas las fuerzas.
 
+    Quaternion q;
+
     float Area() {
         return (radius * radius) * PI;
     }
@@ -109,10 +111,15 @@ public class BallPhysics : MonoBehaviour
 
 
         Debug.Log(wVelocity.Module());
+
+        Our_Quaternion rotacionPelota = new Our_Quaternion(fTau, 2);
+        
+
         
 
 
-        transform.rotation = new Quaternion(fTau.x, fTau.y, fTau.z, 0);
+        q = new Quaternion(rotacionPelota.x, rotacionPelota.y, rotacionPelota.z, rotacionPelota.w);
+        transform.rotation = q;
         //POR OTRO LADO HAY Q DARLE EL EJE DE ROTACION --> FTAU Q ES PARA TODA LA EJECUCION EL MISMO
     }
 
@@ -125,8 +132,10 @@ public class BallPhysics : MonoBehaviour
         }
 
         if (startKicked == true){
-         transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z),20.0f);
-            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(dirfP.x,dirfP.y,dirfP.z),Color.black);
+            transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z),2.0f);
+            //transform.rotation = q;
+            //Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(dirfP.x,dirfP.y,dirfP.z),Color.black);
+            Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);
         }
         /*    //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
             //Calcular fDrag
