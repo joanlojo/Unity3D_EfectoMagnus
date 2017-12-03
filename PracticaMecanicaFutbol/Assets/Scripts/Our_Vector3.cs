@@ -53,11 +53,11 @@ public class Our_Vector3 {
 
 public class Our_Quaternion {
     public float w, x, y, z; //Componentes del quaternion
-    public Our_Quaternion(Our_Vector3 axis, float angle)
-    {
+    public Our_Quaternion(Our_Vector3 axis, float angle) { //Al quaternion hay que pasarle el eje que obtenemos a hacer click en la pelota + el angulo de giro que queremos 
         w = Mathf.Cos(angle / 2);
         x = axis.x * Mathf.Sin(angle / 2);
         y = axis.y * Mathf.Sin(angle / 2);
         z = axis.z * Mathf.Sin(angle / 2);
     }
+    //Creo que no nesecitamos metodos porque no operamos con quaternions, solo aplicamos a la rotacion del objeto  un quaternion, no sumamos quaternions entre ellos ni nada.
 }
