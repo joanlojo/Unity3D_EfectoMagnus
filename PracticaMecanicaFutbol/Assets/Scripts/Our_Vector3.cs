@@ -50,3 +50,14 @@ public class Our_Vector3 {
         z = z * multiplier;
     }
 }
+
+public class Our_Quaternion {
+    public float w, x, y, z; //Componentes del quaternion
+    public Our_Quaternion(Our_Vector3 axis, float angle)
+    {
+        w = Mathf.Cos(angle / 2);
+        x = axis.x * Mathf.Sin(angle / 2);
+        y = axis.y * Mathf.Sin(angle / 2);
+        z = axis.z * Mathf.Sin(angle / 2);
+    }
+}
