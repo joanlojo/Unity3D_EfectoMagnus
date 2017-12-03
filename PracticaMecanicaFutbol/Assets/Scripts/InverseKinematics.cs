@@ -6,26 +6,26 @@ namespace ENTICourse.IK
 {
 
     // A typical error function to minimise
-    public delegate float ErrorFunction(Vector3 target, float[] solution);
+    public delegate float ErrorFunction(Our_Vector3 target, float[] solution);
 
     public struct PositionRotation
     {
-        Vector3 position;
-        Quaternion rotation;
+        Our_Vector3 position;
+        Our_Quaternion rotation;
 
-        public PositionRotation(Vector3 position, Quaternion rotation)
+        public PositionRotation(Our_Vector3 position, Our_Quaternion rotation)
         {
             this.position = position;
             this.rotation = rotation;
         }
 
         // PositionRotation to Vector3
-        public static implicit operator Vector3(PositionRotation pr)
+        public static implicit operator Our_Vector3(PositionRotation pr)
         {
             return pr.position;
         }
         // PositionRotation to Quaternion
-        public static implicit operator Quaternion(PositionRotation pr)
+        public static implicit operator Our_Quaternion(PositionRotation pr)
         {
             return pr.rotation;
         }
@@ -49,7 +49,7 @@ namespace ENTICourse.IK
         [Space]
         public Transform Destination;
         public float DistanceFromDestination;
-        private Vector3 target;
+        private Our_Vector3 target;
 
         [Header("Inverse Kinematics")]
         [Range(0, 1f)]
@@ -96,7 +96,9 @@ namespace ENTICourse.IK
         {
             // Do we have to approach the target?
             //TODO
-            target = Destination.transform.position;
+            target.x = Destination.transform.position.x;
+            target.y = Destination.transform.position.y;
+            target.z = Destination.transform.position.z;
             // ApproachTarget(target);
             //ForwardKinematics(Solution);
             if (DistanceFromTarget(target, Solution) > StopThreshold)
@@ -110,12 +112,12 @@ namespace ENTICourse.IK
 
             if (DebugDraw)
             {
-                Debug.DrawLine(Effector.transform.position, target, Color.green);
-                Debug.DrawLine(Destination.transform.position, target, new Color(0, 0.5f, 0));
+                //Debug.DrawLine(Effector.transform.position, target, Color.green);
+                //Debug.DrawLine(Destination.transform.position, target, new Color(0, 0.5f, 0));
             }
         }
 
-        public void ApproachTarget(Vector3 target)
+        public void ApproachTarget(Our_Vector3 target)
         {
             //TODO
             for (int i = 0; i < Solution.Length; i++)
@@ -126,7 +128,7 @@ namespace ENTICourse.IK
         }
 
 
-        public float CalculateGradient(Vector3 target, float[] Solution, int i, float delta)
+        public float CalculateGradient(Our_Vector3 target, float[] Solution, int i, float delta)
         {
             //TODO 
             float gradient = 0;
@@ -140,10 +142,14 @@ namespace ENTICourse.IK
         }
 
         // Returns the distance from the target, given a solution
-        public float DistanceFromTarget(Vector3 target, float[] Solution)
+        public float DistanceFromTarget(Our_Vector3 target, float[] Solution)
         {
-            Vector3 point = ForwardKinematics(Solution);
-            return Vector3.Distance(point, target);
+            Our_Vector3 dist = new Our_Vector3(0, 0, 0);
+            Our_Vector3 point = ForwardKinematics(Solution);
+            dist.x = point.x - target.x;
+            dist.y = point.y - target.y;
+            dist.z = point.z - target.z;
+            return dist.Module(); //ns si esto es asi, devolvia vecotr3.distnce(point,target)
         }
 
 
@@ -154,19 +160,30 @@ namespace ENTICourse.IK
 
         public PositionRotation ForwardKinematics(float[] Solution)
         {
-            Vector3 prevPoint = Joints[0].transform.position;
+            Our_Vector3 prevPoint = new Our_Vector3(0, 0, 0);
+            prevPoint.x  = Joints[0].transform.position.x;
+            prevPoint.y = Joints[0].transform.position.y;
+            prevPoint.z = Joints[0].transform.position.z;
             //Quaternion rotation = Quaternion.identity;
 
             // Takes object initial rotation into account
-            Quaternion rotation = transform.rotation;
+            Our_Quaternion rotation = new Our_Quaternion(new Our_Vector3(0,0,0), 0);
+            rotation.x = transform.rotation.x;
+            rotation.y = transform.rotation.y;
+            rotation.z = transform.rotation.z;
+            rotation.w = transform.rotation.w;
             for (int i = 1; i < Joints.Length; i++)
             {
                 // Rotates around a new axis
-                rotation *= Quaternion.AngleAxis(Solution[i - 1], Joints[i - 1].Axis);
-                Vector3 nextPoint = prevPoint + rotation * Joints[i].StartOffset;
+                // rotation *= Our_Quaternion.AngleAxis(Solution[i - 1], Joints[i - 1].Axis); // el quaternion tendra q tener este metodo o mirar como hacerlo sin el
+                Our_Vector3 nextPoint = new Our_Vector3(0, 0, 0);
+                nextPoint.x = prevPoint.x + rotation.x * Joints[i].StartOffset.x;
+                nextPoint.y = prevPoint.y + rotation.y * Joints[i].StartOffset.y;
+                nextPoint.z = prevPoint.z + rotation.z * Joints[i].StartOffset.z;
+
 
                 if (DebugDraw)
-                    Debug.DrawLine(prevPoint, nextPoint, Color.blue);
+                    //Debug.DrawLine(prevPoint, nextPoint, Color.blue);
 
                 prevPoint = nextPoint;
             }

@@ -51,8 +51,7 @@ public class BallPhysics : MonoBehaviour
 
     void Start()
     {
-        getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro
-        
+        getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro       
     }
 
     void startKick()
@@ -70,9 +69,6 @@ public class BallPhysics : MonoBehaviour
         fTau = new Our_Vector3(0, 0, 0);
 
         barra.value *= 50;
-       // puntoDeImpacto.x = VectorDireccion.transform.position.x - transform.position.x;//
-       // puntoDeImpacto.y = VectorDireccion.transform.position.y - transform.position.y;//PUNTO DONDE SE APLICA FP, ESTA RESPECTO AL CENTRO DE LA PELOTA
-       // puntoDeImpacto.z = VectorDireccion.transform.position.z - transform.position.z;//
 
         rad.x = getKickPosition.x - transform.position.x;// 
         rad.y = getKickPosition.y - transform.position.y;// VECTOR ENTRE EL CENTRO DE LA PELOTA Y EL PUNTO DE IMPACTO
@@ -91,7 +87,7 @@ public class BallPhysics : MonoBehaviour
         fP.z = dirfP.z * barra.value;
        
 
-       inertiaMoment = (0.667f) * mass * (radius * radius);
+        inertiaMoment = (0.667f) * mass * (radius * radius);
         Kd = (1 / 2) * airDensity * Cd * area;
         Km = (1 / 2) * airDensity * Cm * area;
 
@@ -105,22 +101,11 @@ public class BallPhysics : MonoBehaviour
         lVelocityInit.x = (fP.x * dt) / mass;
         lVelocityInit.y = (fP.y * dt) / mass;
         lVelocityInit.z = (fP.z * dt) / mass;
-        //POR UN LADO HAY Q DARLE UNA VELOCIDAD ANGULAR A LA PELOTA --> WVELOCITY, ES SIEMPRE LA MISMA CREO*
-
-        //transform.rotation.Set(fTau.x*wVelocity.x, fTau.y * wVelocity.y, fTau.z * wVelocity.z, 1);
-
 
         Debug.Log(wVelocity.Module());
 
-        Our_Quaternion rotacionPelota = new Our_Quaternion(fTau, 2);
+        //Our_Quaternion rotacionPelota = new Our_Quaternion(fTau, wVelocity.Module());
         
-
-        
-
-
-        q = new Quaternion(rotacionPelota.x, rotacionPelota.y, rotacionPelota.z, rotacionPelota.w);
-        transform.rotation = q;
-        //POR OTRO LADO HAY Q DARLE EL EJE DE ROTACION --> FTAU Q ES PARA TODA LA EJECUCION EL MISMO
     }
 
     void Update()
@@ -132,10 +117,10 @@ public class BallPhysics : MonoBehaviour
         }
 
         if (startKicked == true){
-            transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z),2.0f);
-            //transform.rotation = q;
-            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z),Color.black);
-            Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);
+            //APLICAMOS LA ROTACION A LA PELOTA A PARTIR DE FTAU
+            transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z), wVelocity.Module());//PARA ROTAR PASAMOS EL EJE DE ROTACION Y EL MODULO DE HOMEGA
+            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z),Color.black);//VEC DIRECCION IMPACTO
+            Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
         }
         /*    //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
             //Calcular fDrag
