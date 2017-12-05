@@ -38,7 +38,7 @@ namespace ENTICourse.IK
         public Transform BaseJoint;
 
 
-      // [ReadOnly]
+        // [ReadOnly]
         public RobotJoints[] Joints = null;
         // The current angles
         //[ReadOnly]
@@ -49,7 +49,7 @@ namespace ENTICourse.IK
         [Space]
         public Transform Destination;
         public float DistanceFromDestination;
-        private Our_Vector3 target;
+        private Our_Vector3 target = new Our_Vector3(0, 0, 0);
 
         [Header("Inverse Kinematics")]
         [Range(0, 1f)]
@@ -138,7 +138,7 @@ namespace ENTICourse.IK
             float distancePlus = DistanceFromTarget(target, Solution);
             gradient = (distancePlus - distance) / delta;
 
-            return gradient; // esto es sin multiplicar, pero creo q solo hace q vaya mas rapido
+            return gradient;
         }
 
         // Returns the distance from the target, given a solution
@@ -161,13 +161,13 @@ namespace ENTICourse.IK
         public PositionRotation ForwardKinematics(float[] Solution)
         {
             Our_Vector3 prevPoint = new Our_Vector3(0, 0, 0);
-            prevPoint.x  = Joints[0].transform.position.x;
+            prevPoint.x = Joints[0].transform.position.x;
             prevPoint.y = Joints[0].transform.position.y;
             prevPoint.z = Joints[0].transform.position.z;
             //Quaternion rotation = Quaternion.identity;
 
             // Takes object initial rotation into account
-            Our_Quaternion rotation = new Our_Quaternion(new Our_Vector3(0,0,0), 0);
+            Our_Quaternion rotation = new Our_Quaternion(0, new Our_Vector3(0, 0, 0));
             rotation.x = transform.rotation.x;
             rotation.y = transform.rotation.y;
             rotation.z = transform.rotation.z;
@@ -175,7 +175,7 @@ namespace ENTICourse.IK
             for (int i = 1; i < Joints.Length; i++)
             {
                 // Rotates around a new axis
-                // rotation *= Our_Quaternion.AngleAxis(Solution[i - 1], Joints[i - 1].Axis); // el quaternion tendra q tener este metodo o mirar como hacerlo sin el
+                rotation.Multiply(new Our_Quaternion(Solution[i - 1], Joints[i - 1].Axis)); // el quaternion tendra q tener este metodo o mirar como hacerlo sin el
                 Our_Vector3 nextPoint = new Our_Vector3(0, 0, 0);
                 nextPoint.x = prevPoint.x + rotation.x * Joints[i].StartOffset.x;
                 nextPoint.y = prevPoint.y + rotation.y * Joints[i].StartOffset.y;
@@ -185,7 +185,7 @@ namespace ENTICourse.IK
                 if (DebugDraw)
                     //Debug.DrawLine(prevPoint, nextPoint, Color.blue);
 
-                prevPoint = nextPoint;
+                    prevPoint = nextPoint;
             }
 
             // The end of the effector

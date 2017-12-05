@@ -12,18 +12,19 @@ namespace ENTICourse.IK
 
         [Header("Joint Limits")]
         // A single 1, which is the axes of movement
-        public Our_Vector3 Axis;
+        public Vector3 axis;
+        public Our_Vector3 Axis = new Our_Vector3(0, 0, 0);
         public float MinAngle;
         public float MaxAngle;
 
         [Header("Initial position")]
         // The offset at resting position
         //[ReadOnly]
-        public Our_Vector3 StartOffset;
+        public Our_Vector3 StartOffset = new Our_Vector3(0, 0, 0);
 
         // The initial one
         //[ReadOnly]
-        public Our_Vector3 ZeroEuler;
+        public Our_Vector3 ZeroEuler = new Our_Vector3(0, 0, 0);
 
         [Header("Movement")]
         // It lerps the speed to zero, from this distance
@@ -40,6 +41,11 @@ namespace ENTICourse.IK
             ZeroEuler.x = transform.localEulerAngles.x;
             ZeroEuler.y = transform.localEulerAngles.y;
             ZeroEuler.z = transform.localEulerAngles.z;
+            Axis.x = axis.x;
+            Axis.y = axis.y;
+            Axis.z= axis.z;
+
+
             StartOffset.x = transform.localPosition.x;
             StartOffset.y = transform.localPosition.y;
             StartOffset.z = transform.localPosition.z;
@@ -48,10 +54,8 @@ namespace ENTICourse.IK
         // Update is called once per frame
         void Update()
         {
-
+            
         }
-
-
         // Try to move the angle by delta.
         // Returns the new angle.
         public float ClampAngle(float angle, float delta = 0)
@@ -69,17 +73,26 @@ namespace ENTICourse.IK
             else
             if (Axis.z == 1) angle = transform.localEulerAngles.z;
 
-            return ClampAngle(angle);
+            return angle; //clamp
         }
         public float SetAngle(float angle)
         {
-            angle = ClampAngle(angle);
-            if (Axis.x == 1) transform.localEulerAngles = new Vector3(angle, 0, 0);
-            else
-            if (Axis.y == 1) transform.localEulerAngles = new Vector3(0, angle, 0);
-            else
-            if (Axis.z == 1) transform.localEulerAngles = new Vector3(0, 0, angle);
-
+            //angle = ClampAngle(angle);
+            if (Axis.x == 1)
+            {
+                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(1f, 0f, 0f));
+                transform.localEulerAngles = new Vector3(angle, 0, 0);
+            }
+            else if (Axis.y == 1)
+            {
+                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(0f, 1f, 0f));
+                transform.localEulerAngles = new Vector3(0, angle, 0);
+            }
+            else if (Axis.z == 1)
+            {
+                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(0f, 0f, 1f));
+                transform.localEulerAngles = new Vector3(0, 0, angle);
+            }
             return angle;
         }
 
