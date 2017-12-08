@@ -112,8 +112,8 @@ namespace ENTICourse.IK
 
             if (DebugDraw)
             {
-                //Debug.DrawLine(Effector.transform.position, target, Color.green);
-                //Debug.DrawLine(Destination.transform.position, target, new Color(0, 0.5f, 0));
+                Debug.DrawLine(Effector.transform.position, new Vector3(target.x, target.y, target.z), Color.green);
+                Debug.DrawLine(Destination.transform.position, new Vector3(target.x, target.y, target.z), new Color(0, 0.5f, 0));
             }
         }
 
@@ -175,7 +175,7 @@ namespace ENTICourse.IK
             for (int i = 1; i < Joints.Length; i++)
             {
                 // Rotates around a new axis
-                rotation.Multiply(new Our_Quaternion(Solution[i - 1], Joints[i - 1].Axis)); // el quaternion tendra q tener este metodo o mirar como hacerlo sin el
+                rotation.Multiply(new Our_Quaternion(Solution[i - 1], Joints[i - 1].Axis)); 
                 Our_Vector3 nextPoint = new Our_Vector3(0, 0, 0);
                 nextPoint.x = prevPoint.x + rotation.x * Joints[i].StartOffset.x;
                 nextPoint.y = prevPoint.y + rotation.y * Joints[i].StartOffset.y;

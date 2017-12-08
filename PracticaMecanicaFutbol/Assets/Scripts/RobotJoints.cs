@@ -20,10 +20,12 @@ namespace ENTICourse.IK
         [Header("Initial position")]
         // The offset at resting position
         //[ReadOnly]
+        public Vector3 startOffset;
         public Our_Vector3 StartOffset = new Our_Vector3(0, 0, 0);
 
         // The initial one
         //[ReadOnly]
+        public Vector3 zeroEuler;
         public Our_Vector3 ZeroEuler = new Our_Vector3(0, 0, 0);
 
         [Header("Movement")]
@@ -38,9 +40,17 @@ namespace ENTICourse.IK
 
         void Awake()
         {
+            ZeroEuler.x = zeroEuler.x;
+            ZeroEuler.y = zeroEuler.y;
+            ZeroEuler.z= zeroEuler.z;
             ZeroEuler.x = transform.localEulerAngles.x;
             ZeroEuler.y = transform.localEulerAngles.y;
             ZeroEuler.z = transform.localEulerAngles.z;
+
+            StartOffset.x = startOffset.x;
+            StartOffset.y = startOffset.y;
+            StartOffset.z= startOffset.z;
+
             Axis.x = axis.x;
             Axis.y = axis.y;
             Axis.z= axis.z;
@@ -73,11 +83,11 @@ namespace ENTICourse.IK
             else
             if (Axis.z == 1) angle = transform.localEulerAngles.z;
 
-            return angle; //clamp
+            return ClampAngle(angle); //clamp
         }
         public float SetAngle(float angle)
         {
-            //angle = ClampAngle(angle);
+            angle = ClampAngle(angle);
             if (Axis.x == 1)
             {
                 Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(1f, 0f, 0f));

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45136082, g: 0.50093204, b: 0.5727287, a: 1}
+  m_IndirectSpecularColor: {r: 0.45136058, g: 0.50093126, b: 0.5727277, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -523,19 +523,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.27682388
+      value: -0.25320235
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9492878
+      value: 0.95041865
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.04170501
+      value: -0.11941251
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.14311528
+      value: -0.13540176
       objectReference: {fileID: 0}
     - target: {fileID: 400044, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -595,27 +595,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.23840642
+      value: -0.23840648
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.035293967
+      value: 0.035294034
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0012489744
+      value: -0.001249019
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0.003
+      value: -17.191
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 17.146
+      value: -11.895
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -32.514
+      value: -28.031002
       objectReference: {fileID: 0}
     - target: {fileID: 100008, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
       propertyPath: m_IsActive
@@ -664,10 +664,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 100082, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
   m_PrefabInternal: {fileID: 543759496}
---- !u!1 &543759498 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100034, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_PrefabInternal: {fileID: 543759496}
 --- !u!1 &543759499 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100050, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
@@ -686,22 +682,8 @@ MonoBehaviour:
   axis: {x: 0, y: 0, z: 0}
   MinAngle: -208
   MaxAngle: -74
-  SlowdownThreshold: 0.5
-  Speed: 1
---- !u!114 &543759501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 543759498}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb8250bac2c9ca84baefe95535121dc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axis: {x: 0, y: 0, z: 1}
-  MinAngle: -44
-  MaxAngle: 2
+  startOffset: {x: 0, y: 0, z: 0}
+  zeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
   Speed: 1
 --- !u!114 &543759502
@@ -718,6 +700,8 @@ MonoBehaviour:
   axis: {x: 0, y: 1, z: 0}
   MinAngle: -30
   MaxAngle: 30
+  startOffset: {x: 0, y: 0, z: 0}
+  zeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
   Speed: 1
 --- !u!4 &543759504 stripped
@@ -867,15 +851,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.028
+      value: 7.81
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.089
+      value: -1.87
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalRotation.x
@@ -943,9 +927,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8250bac2c9ca84baefe95535121dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: {x: 0, y: 1, z: 1}
-  MinAngle: -44
-  MaxAngle: 2
+  axis: {x: 0, y: 1, z: 0}
+  MinAngle: 30
+  MaxAngle: 85
+  startOffset: {x: 0, y: 0, z: 0}
+  zeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
   Speed: 1
 --- !u!1 &1133702886
@@ -1175,6 +1161,8 @@ MonoBehaviour:
   axis: {x: 0, y: 0, z: 0}
   MinAngle: 0
   MaxAngle: 0
+  startOffset: {x: 0, y: 0, z: 0}
+  zeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
   Speed: 1
 --- !u!1 &1614041545 stripped
@@ -1201,7 +1189,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  Effector: {fileID: 1968999019}
+  Effector: {fileID: 1895258783}
   Destination: {fileID: 1157216203}
   DistanceFromDestination: 0
   DeltaGradient: 0.1
@@ -1521,6 +1509,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1838350032}
+--- !u!4 &1895258783 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400046, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
+  m_PrefabInternal: {fileID: 543759496}
 --- !u!1001 &1938678747
 Prefab:
   m_ObjectHideFlags: 0
@@ -1579,10 +1571,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 100006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
   m_PrefabInternal: {fileID: 543759496}
---- !u!4 &1968999019 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 400006, guid: 320b1c2af77554f99a1658df4a6d3d5c, type: 3}
-  m_PrefabInternal: {fileID: 543759496}
 --- !u!114 &1968999020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,9 +1582,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8250bac2c9ca84baefe95535121dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: {x: 0, y: 0.5, z: 0.5}
-  MinAngle: -69
-  MaxAngle: 25
+  axis: {x: 0, y: 1, z: 0}
+  MinAngle: -11
+  MaxAngle: 90
+  startOffset: {x: 0, y: 0, z: 0}
+  zeroEuler: {x: 0, y: 0, z: 0}
   SlowdownThreshold: 0.5
   Speed: 1
 --- !u!1 &2028468836
