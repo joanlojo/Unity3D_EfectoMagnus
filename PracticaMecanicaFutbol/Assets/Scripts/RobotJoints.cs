@@ -82,11 +82,11 @@ namespace ENTICourse.IK
             else
             if (axis.z == 1) angle = transform.localEulerAngles.z;
 
-            return ClampAngle(angle);
+            return angle;
         }
         public float SetAngle(float angle)
         {
-            angle = ClampAngle(angle);
+            //angle = ClampAngle(angle);
             if (axis.x == 1)
             {
                 transform.localEulerAngles = new Vector3(angle, 0, 0); //arregalr esto
