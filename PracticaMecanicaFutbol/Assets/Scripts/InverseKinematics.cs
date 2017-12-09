@@ -58,7 +58,7 @@ namespace ENTICourse.IK
         public float LearningRate = 0.25f; // How much we move depending on the gradient
 
         [Space()]
-        [Range(0, 0.25f)]
+        [Range(0, 1f)]
         public float StopThreshold = 0f; // If closer than this, it stops
         [Range(0, 10f)]
         public float SlowdownThreshold = 0f; // If closer than this, it linearly slows down
@@ -103,9 +103,11 @@ namespace ENTICourse.IK
             //ForwardKinematics(Solution);
             if (DistanceFromTarget(target, Solution) > StopThreshold)
             {
+                Debug.Log("a");
                 ApproachTarget(target);
                 for (int i = 0; i < Joints.Length; i++)
                 {
+
                     Joints[i].MoveArm(Solution[i]);
                 }
             }
@@ -175,7 +177,7 @@ namespace ENTICourse.IK
             for (int i = 1; i < Joints.Length; i++)
             {
                 // Rotates around a new axis
-                rotation.Multiply(new Our_Quaternion(Solution[i - 1], Joints[i - 1].Axis)); 
+                rotation.Multiply(new Our_Quaternion(Solution[i - 1], Joints[i - 1].axis)); 
                 Our_Vector3 nextPoint = new Our_Vector3(0, 0, 0);
                 nextPoint.x = prevPoint.x + rotation.x * Joints[i].StartOffset.x;
                 nextPoint.y = prevPoint.y + rotation.y * Joints[i].StartOffset.y;

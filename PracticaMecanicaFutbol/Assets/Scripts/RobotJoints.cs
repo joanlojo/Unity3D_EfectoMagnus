@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 namespace ENTICourse.IK
 {
 
@@ -12,21 +11,22 @@ namespace ENTICourse.IK
 
         [Header("Joint Limits")]
         // A single 1, which is the axes of movement
-        public Vector3 axis;
-        public Our_Vector3 Axis = new Our_Vector3(0, 0, 0);
+        public Vector3 Axis;
+        public Our_Vector3 axis = new Our_Vector3(0, 0, 0);
         public float MinAngle;
         public float MaxAngle;
 
         [Header("Initial position")]
         // The offset at resting position
         //[ReadOnly]
-        public Vector3 startOffset;
-        public Our_Vector3 StartOffset = new Our_Vector3(0, 0, 0);
-
+        public Vector3 StartOffset;
+        public Our_Vector3 startOffset = new Our_Vector3(0, 0, 0);
         // The initial one
         //[ReadOnly]
-        public Vector3 zeroEuler;
-        public Our_Vector3 ZeroEuler = new Our_Vector3(0, 0, 0);
+        public Vector3 ZeroEuler;
+        public Our_Vector3 zeroEuler = new Our_Vector3(0, 0, 0);
+
+
 
         [Header("Movement")]
         // It lerps the speed to zero, from this distance
@@ -40,32 +40,31 @@ namespace ENTICourse.IK
 
         void Awake()
         {
+            zeroEuler.x = transform.localEulerAngles.x;
+            zeroEuler.y = transform.localEulerAngles.y;
+            zeroEuler.z = transform.localEulerAngles.z;
+            startOffset.x = transform.localPosition.x;
+            startOffset.y = transform.localPosition.y;
+            startOffset.z = transform.localPosition.z;
+            axis.x = Axis.x;
+            axis.y = Axis.y;
+            axis.z = Axis.z;
+
             ZeroEuler.x = zeroEuler.x;
             ZeroEuler.y = zeroEuler.y;
-            ZeroEuler.z= zeroEuler.z;
-            ZeroEuler.x = transform.localEulerAngles.x;
-            ZeroEuler.y = transform.localEulerAngles.y;
-            ZeroEuler.z = transform.localEulerAngles.z;
-
+            ZeroEuler.z = zeroEuler.z;
             StartOffset.x = startOffset.x;
             StartOffset.y = startOffset.y;
-            StartOffset.z= startOffset.z;
-
-            Axis.x = axis.x;
-            Axis.y = axis.y;
-            Axis.z= axis.z;
-
-
-            StartOffset.x = transform.localPosition.x;
-            StartOffset.y = transform.localPosition.y;
-            StartOffset.z = transform.localPosition.z;
+            StartOffset.z = startOffset.z;
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+
         }
+
+
         // Try to move the angle by delta.
         // Returns the new angle.
         public float ClampAngle(float angle, float delta = 0)
@@ -77,32 +76,30 @@ namespace ENTICourse.IK
         public float GetAngle()
         {
             float angle = 0;
-            if (Axis.x == 1) angle = transform.localEulerAngles.x;
+            if (axis.x == 1) angle = transform.localEulerAngles.x;
             else
-            if (Axis.y == 1) angle = transform.localEulerAngles.y;
+            if (axis.y == 1) angle = transform.localEulerAngles.y;
             else
-            if (Axis.z == 1) angle = transform.localEulerAngles.z;
+            if (axis.z == 1) angle = transform.localEulerAngles.z;
 
-            return ClampAngle(angle); //clamp
+            return ClampAngle(angle);
         }
         public float SetAngle(float angle)
         {
             angle = ClampAngle(angle);
-            if (Axis.x == 1)
+            if (axis.x == 1)
             {
-                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(1f, 0f, 0f));
-                transform.localEulerAngles = new Vector3(angle, 0, 0);
+                transform.localEulerAngles = new Vector3(angle, 0, 0); //arregalr esto
             }
-            else if (Axis.y == 1)
+            else if (axis.y == 1)
             {
-                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(0f, 1f, 0f));
                 transform.localEulerAngles = new Vector3(0, angle, 0);
             }
-            else if (Axis.z == 1)
+            else if (axis.z == 1)
             {
-                Our_Quaternion rot = new Our_Quaternion(angle * Mathf.Rad2Deg, new Our_Vector3(0f, 0f, 1f));
                 transform.localEulerAngles = new Vector3(0, 0, angle);
             }
+
             return angle;
         }
 
