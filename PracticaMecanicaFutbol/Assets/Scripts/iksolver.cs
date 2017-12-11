@@ -96,6 +96,7 @@ public class iksolver : MonoBehaviour
 
                     // rotate the ith joint along the axis by theta degrees in the world space.
                     // TODO9
+                    
                     joints[i].transform.rotation = Quaternion.AngleAxis(theta[i], axis) * joints[i].transform.rotation;
 
 
