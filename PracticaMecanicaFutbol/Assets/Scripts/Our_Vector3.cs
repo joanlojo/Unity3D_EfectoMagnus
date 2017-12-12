@@ -60,21 +60,33 @@ public class Our_Quaternion {
         z = _z;
         w = _w;
     }
-    public Our_Quaternion AngleAxis(float angle, Our_Vector3 axis) { //Al quaternion hay que pasarle el eje que obtenemos a hacer click en la pelota + el angulo de giro que queremos 
-        w = Mathf.Cos(angle / 2);
-        x = axis.x * Mathf.Sin(angle / 2);
-        y = axis.y * Mathf.Sin(angle / 2);
-        z = axis.z * Mathf.Sin(angle / 2);
-        return new Our_Quaternion(x, y, z, w);
+    public Our_Quaternion(float angle, Our_Vector3 axis) { //Al quaternion hay que pasarle el eje que obtenemos a hacer click en la pelota + el angulo de giro que queremos 
+        axis.Normalize();
+        w = Mathf.Cos((angle * Mathf.Deg2Rad) / 2);
+        x = axis.x * Mathf.Sin((angle * Mathf.Deg2Rad) / 2);
+        y = axis.y * Mathf.Sin((angle * Mathf.Deg2Rad) / 2);
+        z = axis.z * Mathf.Sin((angle * Mathf.Deg2Rad) / 2);
     }
 
-    public Our_Quaternion Multiply(Our_Quaternion b)
+
+    public void Multiply(Our_Quaternion b)
     {
-        w = w * b.w - x * b.x - y * b.y - z * b.z;  // w
-        x = w* b.x + x * b.w + y * b.z - z * b.y;  // x
-        y = w* b.y - x * b.z + y * b.w + z * b.x;  // y
-        z = w* b.z + x * b.y - y * b.x + z * b.w;  // z
-        return new Our_Quaternion(x, y, z, w);
+        float tempW, tempX, tempY, tempZ;
+
+        
+        tempW = (w * b.w) - (x * b.x) - (y * b.y) - (z * b.z);  // w
+        tempX = (w* b.x) + (x * b.w) - (y * b.z) + (z * b.y);  // x
+        tempY = (w* b.y) + (x * b.y) + (y * b.w) - (z * b.x);  // y
+        tempZ = (w* b.z) - (x * b.y) + (y * b.x) + (z * b.w);  // z
+
+        w = tempW;
+        x = tempX;
+        y = tempY;
+        z = tempZ;
+
+
+
+
     }
     //Creo que no nesecitamos metodos porque no operamos con quaternions, solo aplicamos a la rotacion del objeto  un quaternion, no sumamos quaternions entre ellos ni nada.
 }

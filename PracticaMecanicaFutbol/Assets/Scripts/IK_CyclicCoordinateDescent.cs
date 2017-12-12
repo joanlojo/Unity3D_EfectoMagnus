@@ -83,19 +83,22 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                     //theta[i] = Mathf.Clamp(theta[i], 0.0f, 0.5f);
 
                     if (sin[i] < 0) { theta[i] = -theta[i]; }
-                    //Our_Quaternion a = new Our_Quaternion(0, 0, 0, 0);
-                    //Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
-                    //Our_Quaternion myRotation = a.AngleAxis(theta[i], rotationAxis).Multiply(rt); //ESTO FALLA
-                   // myRotation.x = myRotation.x * joints[i].transform.rotation.x;
-                    //myRotation.x = myRotation.y * joints[i].transform.rotation.y;
-                    //myRotation.x = myRotation.z * joints[i].transform.rotation.z;
-                    //myRotation.x = myRotation.w * joints[i].transform.rotation.w;
-                    Quaternion myRotation = Quaternion.AngleAxis(theta[i], new Vector3(rotationAxis.x, rotationAxis.y, rotationAxis.z)) * joints[i].transform.rotation; //Aplicar las contraints en un quaternion nuevo, no en el que se aplica directamente sobre el rotation.
+
+                    Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                    Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                    myRotation.Multiply(rt);
+
+                    
+
+
+
+                    //Quaternion myRotation = Quaternion.AngleAxis(theta[i], new Vector3(rotationAxis.x, rotationAxis.y, rotationAxis.z)) * joints[i].transform.rotation; //Aplicar las contraints en un quaternion nuevo, no en el que se aplica directamente sobre el rotation.
+                    //Debug.Log(myRotation);
+
+                    //Debug.Log("Our: " + myRotation2.z);
+                    Debug.Log("Normal: " + myRotation.z);
                     myRotation.y = myRotation.z = 0;
 
-
-
-                    //joints[i].transform.rotation = Quaternion.AngleAxis(theta[i], new Vector3(rotationAxis.x,0,0) * joints[i].transform.rotation; // esto da problemas ^^^^
                     joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                                    
                 }
