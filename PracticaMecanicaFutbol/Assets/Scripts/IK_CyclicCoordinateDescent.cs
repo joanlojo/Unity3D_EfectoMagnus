@@ -11,6 +11,8 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
     public float[] theta; //Angulos para cada joint
     private float[] firstAngles; //Angulos iniciales de los joints
 
+    public string type;
+
     [Range(0.0f, 180.0f)]
     public float maxAngle = 360.0f;
 
@@ -74,33 +76,147 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                         sin[i] = r1.CrossProduct(r2).Module() / (r1.Module() * r2.Module());
 
                     }
+
                     Our_Vector3 rotationAxis = rotationAxis = r1.CrossProduct(r2);
                     rotationAxis.Normalize();
-                    //Vector3 rotationAxis = Vector3.Cross(new Vector3(r1.x, r1.y, r1.z), new Vector3(r2.x, r2.y, r2.z)).normalized;
-                    theta[i] = Mathf.Acos(cos[i]);
-                    theta[i] = theta[i]*Mathf.Rad2Deg;
-                    
-                    //theta[i] = Mathf.Clamp(theta[i], 0.0f, 0.5f);
 
-                    if (sin[i] < 0) { theta[i] = -theta[i]; }
+                    if(type == "cadera")
+                    {
+                        if (i == 0)
+                        {
 
-                    Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
-                    Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
-                    myRotation.Multiply(rt);
+                            theta[i] = Mathf.Acos(cos[i]);
+                            theta[i] = theta[i] * Mathf.Rad2Deg;
+                            if (sin[i] < 0) { theta[i] = -theta[i]; }
 
-                    
+                            Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                            Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                            myRotation.Multiply(rt);
+                            myRotation.y = myRotation.z = 0; //Rotation only in X axis.
 
 
+                            Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
-                    //Quaternion myRotation = Quaternion.AngleAxis(theta[i], new Vector3(rotationAxis.x, rotationAxis.y, rotationAxis.z)) * joints[i].transform.rotation; //Aplicar las contraints en un quaternion nuevo, no en el que se aplica directamente sobre el rotation.
-                    //Debug.Log(myRotation);
+                            float angleF;
+                            Vector3 axisF;
+                            temp.ToAngleAxis(out angleF, out axisF);
+                            //Debug.Log(angleF);
+                            if (angleF > 130 && angleF < 230)
+                            {
 
-                    //Debug.Log("Our: " + myRotation2.z);
-                    Debug.Log("Normal: " + myRotation.z);
-                    myRotation.y = myRotation.z = 0;
+                                joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+                            }
+                        }
+                    }
 
-                    joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
-                                   
+                    if (type == "brazoD")
+                    {
+                        if (i == 0)
+                        {
+
+                            theta[i] = Mathf.Acos(cos[i]);
+                            theta[i] = theta[i] * Mathf.Rad2Deg;
+                            if (sin[i] < 0) { theta[i] = -theta[i]; }
+
+                            Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                            Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                            myRotation.Multiply(rt);
+                            myRotation.y = myRotation.z = 0; //Rotation only in X axis.
+
+
+                            Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+
+                            float angleF;
+                            Vector3 axisF;
+                            temp.ToAngleAxis(out angleF, out axisF);
+                            //Debug.Log(angleF);
+                            if (angleF > 15 && angleF < 270)
+                            {
+
+                                joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+                            }
+                        }
+                        /*if (i == 1)
+                        {
+                            
+                            theta[i] = Mathf.Acos(cos[i]);
+                            theta[i] = theta[i] * Mathf.Rad2Deg;
+                            if (sin[i] < 0) { theta[i] = -theta[i]; }
+
+                            Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                            Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                            myRotation.Multiply(rt);
+                            myRotation.y = myRotation.z = 0; //Rotation only in X axis.
+
+
+                            Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+
+                            float angleF;
+                            Vector3 axisF;
+                            temp.ToAngleAxis(out angleF, out axisF);
+                            Debug.Log(angleF);
+                            if (angleF > 130 && angleF < 230)
+                            {
+
+                                joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+                            }
+                        }*/
+                    }
+
+                    if (type == "brazoI")
+                    {
+                        if (i == 0)
+                        {
+
+                            theta[i] = Mathf.Acos(cos[i]);
+                            theta[i] = theta[i] * Mathf.Rad2Deg;
+                            if (sin[i] < 0) { theta[i] = -theta[i]; }
+
+                            Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                            Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                            myRotation.Multiply(rt);
+                            myRotation.y = myRotation.z = 0; //Rotation only in X axis.
+
+
+                            Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+
+                            float angleF;
+                            Vector3 axisF;
+                            temp.ToAngleAxis(out angleF, out axisF);
+                            Debug.Log(angleF);
+                            if (angleF > 90  && angleF < 345)
+                            {
+
+                                joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+                            }
+                        }
+                        /*if (i == 1)
+                        {
+
+                            theta[i] = Mathf.Acos(cos[i]);
+                            theta[i] = theta[i] * Mathf.Rad2Deg;
+                            if (sin[i] < 0) { theta[i] = -theta[i]; }
+
+                            Our_Quaternion rt = new Our_Quaternion(joints[i].transform.rotation.x, joints[i].transform.rotation.y, joints[i].transform.rotation.z, joints[i].transform.rotation.w);
+                            Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
+                            myRotation.Multiply(rt);
+                            myRotation.y = myRotation.z = 0; //Rotation only in X axis.
+
+
+                            Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+
+                            float angleF;
+                            Vector3 axisF;
+                            temp.ToAngleAxis(out angleF, out axisF);
+                            Debug.Log(angleF);
+                            if (angleF > 130 && angleF < 230)
+                            {
+
+                                joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
+                            }
+                        }*/
+                    }
+
                 }
                 intentos++;
             }
