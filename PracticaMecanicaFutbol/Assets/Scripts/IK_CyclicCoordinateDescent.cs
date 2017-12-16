@@ -136,7 +136,7 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
-                        /*if (i == 1)
+                        if (i == 1)
                         {
                             
                             theta[i] = Mathf.Acos(cos[i]);
@@ -155,12 +155,12 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
                             Debug.Log(angleF);
-                            if (angleF > 130 && angleF < 230)
+                            if (angleF > 10 && angleF < 90)
                             {
 
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
-                        }*/
+                        }
                     }
 
                     if (type == "brazoI")
@@ -183,14 +183,14 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            Debug.Log(angleF);
+                            //Debug.Log(angleF);
                             if (angleF > 90  && angleF < 345)
                             {
 
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
-                        /*if (i == 1)
+                        if (i == 1)
                         {
 
                             theta[i] = Mathf.Acos(cos[i]);
@@ -208,13 +208,13 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            Debug.Log(angleF);
-                            if (angleF > 130 && angleF < 230)
-                            {
 
+                            //Debug.Log(angleF);
+                            if (angleF > 50 && angleF > 270)
+                            {
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
-                        }*/
+                        }
                     }
 
                 }
