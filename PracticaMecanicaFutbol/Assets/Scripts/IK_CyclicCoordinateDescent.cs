@@ -39,7 +39,6 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
         firstAngles = new float[joints.Length];
         sin = new float[joints.Length];
         cos = new float[joints.Length];
-        //targetPosition = target.transform.position;
         targetPosition.x = target.transform.position.x;
         targetPosition.y = target.transform.position.y;
         targetPosition.z = target.transform.position.z;
@@ -136,6 +135,7 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
+                     
                         if (i == 1)
                         {
                             
