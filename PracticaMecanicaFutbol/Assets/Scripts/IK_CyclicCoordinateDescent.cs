@@ -26,7 +26,7 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
 
     private bool done = false; //Comprivar si se alcanza la posicion objetivo
     private Our_Vector3 targetPosition = new Our_Vector3(0,0,0); //Guarda la posicion del target
-    //private Vector3 targetPosition;
+
     [SerializeField]
     private int intentos = 0;
     [SerializeField]
@@ -50,11 +50,8 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
         {
             if (intentos <= M_intentos)
             {
-                for (int i = joints.Length - 2; i >= 0; i--)
+                for (int i = joints.Length - 1; i >= 0; i--) //AQUI ESTABA -2 !!!
                 {
-                    //Vector3 r1 = new Vector3(0,0,0);//= joints[joints.Length - 1].transform.position - joints[i].transform.position;               
-                    //Vector3 r2 = new Vector3(0,0,0); //= targetPosition - joints[i].transform.position;
-
                     Our_Vector3 r1 = new Our_Vector3(0, 0, 0);
                     r1.x = joints[joints.Length - 1].transform.position.x - joints[i].transform.position.x;
                     r1.y = joints[joints.Length - 1].transform.position.y - joints[i].transform.position.y;
@@ -69,11 +66,8 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                     }
                     else
                     {
-                        //cos[i] = Vector3.Dot(r1, r2) / (r1.magnitude * r2.magnitude);
-                        //sin[i] = Vector3.Cross(r1, r2).magnitude / (r1.magnitude * r2.magnitude);
                         cos[i] = r1.DotProduct(r2) / (r1.Module() * r2.Module());
                         sin[i] = r1.CrossProduct(r2).Module() / (r1.Module() * r2.Module());
-
                     }
 
                     Our_Vector3 rotationAxis = rotationAxis = r1.CrossProduct(r2);
@@ -83,7 +77,6 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                     {
                         if (i == 0)
                         {
-
                             theta[i] = Mathf.Acos(cos[i]);
                             theta[i] = theta[i] * Mathf.Rad2Deg;
                             if (sin[i] < 0) { theta[i] = -theta[i]; }
@@ -92,17 +85,13 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
                             myRotation.Multiply(rt);
                             myRotation.y = myRotation.z = 0; //Rotation only in X axis.
-
-
                             Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            //Debug.Log(angleF);
                             if (angleF > 130 && angleF < 230)
                             {
-
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
@@ -112,7 +101,6 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                     {
                         if (i == 0)
                         {
-
                             theta[i] = Mathf.Acos(cos[i]);
                             theta[i] = theta[i] * Mathf.Rad2Deg;
                             if (sin[i] < 0) { theta[i] = -theta[i]; }
@@ -121,24 +109,19 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
                             myRotation.Multiply(rt);
                             myRotation.y = myRotation.z = 0; //Rotation only in X axis.
-
-
                             Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            //Debug.Log(angleF);
                             if (angleF > 15 && angleF < 270)
                             {
-
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
                      
                         if (i == 1)
-                        {
-                            
+                        {                  
                             theta[i] = Mathf.Acos(cos[i]);
                             theta[i] = theta[i] * Mathf.Rad2Deg;
                             if (sin[i] < 0) { theta[i] = -theta[i]; }
@@ -147,17 +130,13 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
                             myRotation.Multiply(rt);
                             myRotation.y = myRotation.z = 0; //Rotation only in X axis.
-
-
                             Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            Debug.Log(angleF);
                             if (angleF > 10 && angleF < 90)
                             {
-
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
@@ -167,7 +146,6 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                     {
                         if (i == 0)
                         {
-
                             theta[i] = Mathf.Acos(cos[i]);
                             theta[i] = theta[i] * Mathf.Rad2Deg;
                             if (sin[i] < 0) { theta[i] = -theta[i]; }
@@ -176,23 +154,18 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
                             myRotation.Multiply(rt);
                             myRotation.y = myRotation.z = 0; //Rotation only in X axis.
-
-
                             Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-                            //Debug.Log(angleF);
                             if (angleF > 90  && angleF < 345)
                             {
-
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
                         }
                         if (i == 1)
                         {
-
                             theta[i] = Mathf.Acos(cos[i]);
                             theta[i] = theta[i] * Mathf.Rad2Deg;
                             if (sin[i] < 0) { theta[i] = -theta[i]; }
@@ -201,22 +174,17 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
                             Our_Quaternion myRotation = new Our_Quaternion(theta[i], rotationAxis); //ESTO FALLA
                             myRotation.Multiply(rt);
                             myRotation.y = myRotation.z = 0; //Rotation only in X axis.
-
-
                             Quaternion temp = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
 
                             float angleF;
                             Vector3 axisF;
                             temp.ToAngleAxis(out angleF, out axisF);
-
-                            //Debug.Log(angleF);
                             if (angleF > 50 && angleF > 270)
                             {
                                 joints[i].transform.rotation = new Quaternion(myRotation.x, myRotation.y, myRotation.z, myRotation.w);
                             }
-                        }
+                        }                     
                     }
-
                 }
                 intentos++;
             }
@@ -228,7 +196,6 @@ public class IK_CyclicCoordinateDescent : MonoBehaviour {
         if(targetPosition.x != target.transform.position.x || targetPosition.y != target.transform.position.y || targetPosition.z != target.transform.position.z) //targetPosition != target.transform.position
         {
             intentos = 0;
-           //targetPosition = target.transform.position;
             targetPosition.x = target.transform.position.x;
             targetPosition.y = target.transform.position.y;
             targetPosition.z = target.transform.position.z;

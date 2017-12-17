@@ -14,7 +14,7 @@ public class BallPhysics : MonoBehaviour
 
     Our_Vector3 position = new Our_Vector3(0, 0, 0);
     Our_Vector3 lVelocityInit = new Our_Vector3(0, 0, 0);
-    Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
     Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
     float radius ;

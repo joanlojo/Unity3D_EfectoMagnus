@@ -13,22 +13,22 @@ public class MoverCursores : MonoBehaviour {
 	void Update () {
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            transform.Translate(Vector3.up/100);
+            transform.Translate(Vector3.up/50);
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            transform.Translate(Vector3.down / 100);
+            transform.Translate(Vector3.down / 50);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Translate(Vector3.back / 100);
+            transform.Translate(Vector3.back / 50);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Translate(Vector3.forward / 100);
+            transform.Translate(Vector3.forward / 50);
         }
     }
 }
