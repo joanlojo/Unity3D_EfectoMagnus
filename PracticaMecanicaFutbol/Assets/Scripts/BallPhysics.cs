@@ -62,7 +62,7 @@ public class BallPhysics : MonoBehaviour
         Cm = 0.25f;
         mass = 0.396f; //0.396f
         radius = 0.279f; //0.279f
-        dt = 0.01f;
+        dt = 0.01f; //PUEDE SER Q NECESITEMOS 2 DT
         fGravity = new Our_Vector3(0, 0, -mass * gravity);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);
@@ -121,8 +121,7 @@ public class BallPhysics : MonoBehaviour
             transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z), wVelocity.Module());//PARA ROTAR PASAMOS EL EJE DE ROTACION Y EL MODULO DE HOMEGA
             Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z),Color.black);//VEC DIRECCION IMPACTO
             Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
-        }
-        /*    //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
+            //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
             //Calcular fDrag
             fDrag.x = -Kd * lVelocityInit.Module() * lVelocityFin.x;
             fDrag.y = -Kd * lVelocityInit.Module() * lVelocityFin.y;
@@ -139,12 +138,23 @@ public class BallPhysics : MonoBehaviour
             fTotal.y = fDrag.y + fMagnus.y;//CREO QUE NO HACE FALTA
             fTotal.z = fDrag.z + fMagnus.z + fGravity.z;//
 
-            //ACTUALIZAR lVelocityInit A PARTIR DE LAS NUEVAS FORUMLAS CON EL METODO DE EULER
+            //ACTUALIZAR lVelocityInit A PARTIR DE LAS NUEVAS FORUMLAS CON EL METODO DE EULER   
             //vanterior = lVelocityFin
             //act v anterior
             //modificar lVelocityFin = vanterior
+            Our_Vector3 a = fTotal.Divide(mass);
+            Debug.DrawLine(transform.position, transform.position + fDrag.Divide(mass), Color.blue);
+            Debug.DrawLine(transform.position, transform.position + fMagnus.Divide(mass), Color.red);
+            Debug.DrawLine(transform.position, transform.position + fP.Divide(mass), Color.yellow);
+            Debug.DrawLine(transform.position, transform.position + fTotal.Divide(mass), Color.white);
+
+            lVelocityFin = lVelocityInit;
+            lVelocityInit = lVelocityFin.Add(a.Multiply(dt));
+            transform.position = new Our_Vector3(transform.position.x, transform.position.y, transform.position.z).Add(lVelocityFin.Multiply(dt));
+
 
             //CALCULAR DERIVADA DE POSICION
-            //MODIFICAR LA POSITION DE LA PELOTA*/
+            //MODIFICAR LA POSITION DE LA PELOTA
+        }         
     }
 }

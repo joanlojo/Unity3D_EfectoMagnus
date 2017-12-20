@@ -12,9 +12,16 @@ public class Colision : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.position == pelota.transform.position)
-        {
 
+        // 0.5   ---  3
+        Our_Vector3 dist = new Our_Vector3(pelota.transform.position.x - transform.position.x, pelota.transform.position.y - transform.position.y, pelota.transform.position.z - transform.position.z);
+        Debug.DrawLine(pelota.transform.position, transform.position, Color.green);
+        if(dist.Module() < 0.2)
+        {
+            velocityP.x = 0;
+            velocityP.y = 0;
+            velocityP.z = 0;
         }
+        
 	}
 }

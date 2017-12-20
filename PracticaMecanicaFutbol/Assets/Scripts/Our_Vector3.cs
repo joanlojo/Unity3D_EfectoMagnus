@@ -13,7 +13,17 @@ public class Our_Vector3 {
         z = _z;
         module = 0;
     }
-	public Our_Vector3 CrossProduct(Our_Vector3 vector_b){ //Devuelve un vector nuevo sin sobreescribir ningun resultado
+    // User-defined conversion from Digit to double
+    public static implicit operator Our_Vector3(Vector3 d)
+    {
+        return d;
+    }
+    //  User-defined conversion from double to Digit
+    public static implicit operator Vector3(Our_Vector3 d)
+    {
+        return new Vector3(d.x, d.y, d.z);
+    }
+    public Our_Vector3 CrossProduct(Our_Vector3 vector_b){ //Devuelve un vector nuevo sin sobreescribir ningun resultado
 		Our_Vector3 res = new Our_Vector3(y*vector_b.z - z*vector_b.y,z*vector_b.x - x*vector_b.z,x*vector_b.y - y*vector_b.x);
 		return res;
 	}
@@ -29,25 +39,28 @@ public class Our_Vector3 {
 	public float Module(){ 
 		return Mathf.Sqrt((Mathf.Pow(x,2))+(Mathf.Pow(y,2))+(Mathf.Pow(z,2)));
 	}
-	public void Add(Our_Vector3 vector_b){ //El resultado sobreescribe el vector sobre el que se hace el .Add
+	public Our_Vector3 Add(Our_Vector3 vector_b){ //El resultado sobreescribe el vector sobre el que se hace el .Add
         x = x + vector_b.x;
 		y = y + vector_b.y;
 		z = z + vector_b.z;
+        return new Our_Vector3(x, y, z);
 	}
 	public void Substract(Our_Vector3 vector_b){ //El resultado sobreescribe el vector sobre el que se hace el .Substract
 		x = x - vector_b.x;
 		y = y - vector_b.y;
 		z = z - vector_b.z;
 	}
-    public void Divide(float divider) { //El resultado sobreescribe el vector sobre el que se hace el .Divide
+    public Our_Vector3 Divide(float divider) { //El resultado sobreescribe el vector sobre el que se hace el .Divide
         x = x / divider;
         y = y / divider;
         z = z / divider;
+        return new Our_Vector3(x, y, z);
     }
-    public void Multiply(float multiplier) { //El resultado sobreescribe el vector sobre el que se haga el .Multiply
+    public Our_Vector3 Multiply(float multiplier) { //El resultado sobreescribe el vector sobre el que se haga el .Multiply
         x = x * multiplier;
         y = y * multiplier;
         z = z * multiplier;
+        return new Our_Vector3(x, y, z);
     }
 }
 
