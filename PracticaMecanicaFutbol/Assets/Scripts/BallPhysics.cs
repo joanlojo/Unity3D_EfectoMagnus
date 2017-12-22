@@ -17,7 +17,7 @@ public class BallPhysics : MonoBehaviour
     public Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
     Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
-    float radius ;
+    float radius = 0.279f;
 
     float alpha;
     float airDensity;
@@ -51,18 +51,23 @@ public class BallPhysics : MonoBehaviour
 
     void Start()
     {
-        getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro       
-    }
-
-    void startKick()
-    {
-        float area = Area();
+        getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro    
+        //float area = Area();
         airDensity = 1.23f;
         Cd = 0.25f;
         Cm = 0.25f;
         mass = 0.396f; //0.396f
-        radius = 0.279f; //0.279f
+        //radius = 0.279f; //0.279f
         dt = 0.01f; //PUEDE SER Q NECESITEMOS 2 DT
+        inertiaMoment = (0.667f) * mass * (radius * radius);
+        Kd = 0.5f * airDensity * Cd * Area();
+        Km = 0.5f * airDensity * Cm * Area();
+        
+    }
+
+    void startKick()
+    {
+       
         fGravity = new Our_Vector3(0, 0, -mass * gravity);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);
@@ -85,12 +90,7 @@ public class BallPhysics : MonoBehaviour
         fP.x = dirfP.x * barra.value;
         fP.y = dirfP.y * barra.value;
         fP.z = dirfP.z * barra.value;
-       
-
-        inertiaMoment = (0.667f) * mass * (radius * radius);
-        Kd = (1 / 2) * airDensity * Cd * area;
-        Km = (1 / 2) * airDensity * Cm * area;
-
+      
         //Calcular direccion Tau
         fTau = rad.CrossProduct(fP);
         //Calcular wVelocity (Inicial)
@@ -98,12 +98,9 @@ public class BallPhysics : MonoBehaviour
         wVelocity.y = fTau.y / inertiaMoment * dt;
         wVelocity.z = fTau.z / inertiaMoment * dt;
         //Calcular lVelocity (Inicial)
-        lVelocityInit.x = (fP.x * dt) / mass;
+        lVelocityInit.x = (fP.x * dt) / mass;//aqui el dt puede ser q sea otro
         lVelocityInit.y = (fP.y * dt) / mass;
         lVelocityInit.z = (fP.z * dt) / mass;
-
-        Debug.Log(wVelocity.Module());
-
         //Our_Quaternion rotacionPelota = new Our_Quaternion(fTau, wVelocity.Module());
         
     }
@@ -123,15 +120,21 @@ public class BallPhysics : MonoBehaviour
             Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
             //EL PRIMER FRAME UTILIZA LA VELOCIDAD INICIAL, A PARTIR DE AHI SE DEBE ACTUALIZAR
             //Calcular fDrag
-            fDrag.x = -Kd * lVelocityInit.Module() * lVelocityFin.x;
-            fDrag.y = -Kd * lVelocityInit.Module() * lVelocityFin.y;
-            fDrag.z = -Kd * lVelocityInit.Module() * lVelocityFin.z;
-
+            fDrag.x = -Kd * lVelocityInit.Module() * lVelocityInit.x;
+            fDrag.y = -Kd * lVelocityInit.Module() * lVelocityInit.y;
+            fDrag.z = -Kd * lVelocityInit.Module() * lVelocityInit.z;
+            //Debug.Log("Drag x: " + fDrag.x);
+            //Debug.Log("Drag y: " + fDrag.y);
+            //Debug.Log("Drag z: " + fDrag.z);
             //Calcular fMagnus
             wVelocity.Normalize();
+            //Debug.Log(wVelocity.Module());
             fMagnus.x = Km * lVelocityInit.Module() * (wVelocity.y * lVelocityInit.z - lVelocityInit.y * wVelocity.z);
             fMagnus.y = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.z - lVelocityInit.x * wVelocity.z);
             fMagnus.z = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.y - lVelocityInit.x * wVelocity.y);
+            //Debug.Log("Magnus x: " + fMagnus.x);
+            //Debug.Log("Magnus y: " + fMagnus.y);
+            //Debug.Log("Magnus z: " + fMagnus.z);
 
             //Agrupar fTotal
             fTotal.x = fDrag.x + fMagnus.x;//
@@ -149,9 +152,9 @@ public class BallPhysics : MonoBehaviour
             Debug.DrawLine(transform.position, transform.position + fTotal.Divide(mass), Color.white);
 
             lVelocityFin = lVelocityInit;
-            lVelocityInit = lVelocityFin.Add(a.Multiply(dt));
+            lVelocityInit = lVelocityFin.Add(a.Multiply(Time.deltaTime));
             transform.position = new Our_Vector3(transform.position.x, transform.position.y, transform.position.z).Add(lVelocityFin.Multiply(dt));
-
+            Debug.Log(lVelocityInit.Module());
 
             //CALCULAR DERIVADA DE POSICION
             //MODIFICAR LA POSITION DE LA PELOTA
