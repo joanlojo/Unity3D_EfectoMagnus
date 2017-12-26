@@ -50,11 +50,11 @@ public class Our_Vector3 {
 		y = y - vector_b.y;
 		z = z - vector_b.z;
 	}
-    public Our_Vector3 Divide(float divider) { //El resultado sobreescribe el vector sobre el que se hace el .Divide
+    public void Divide(float divider) { //El resultado sobreescribe el vector sobre el que se hace el .Divide
         x = x / divider;
         y = y / divider;
         z = z / divider;
-        return new Our_Vector3(x, y, z);
+        //return new Our_Vector3(x, y, z);
     }
     public Our_Vector3 Multiply(float multiplier) { //El resultado sobreescribe el vector sobre el que se haga el .Multiply
         x = x * multiplier;
