@@ -121,7 +121,7 @@ public class BallPhysics : MonoBehaviour
             fDrag.x = -Kd * lVelocityInit.Module() * lVelocityInit.x;
             fDrag.y = -Kd * lVelocityInit.Module() * lVelocityInit.y;
             fDrag.z = -Kd * lVelocityInit.Module() * lVelocityInit.z;
-            //Debug.Log("Drag" + lVelocityInit.Module());
+            //bug.Log("Drag" + lVelocityInit.Module());
             //Debug.Log("Drag x: " + fDrag.x);
             //Debug.Log("Drag y: " + fDrag.y);
             //Debug.Log("Drag z: " + fDrag.z);
@@ -149,11 +149,10 @@ public class BallPhysics : MonoBehaviour
             //modificar lVelocityFin = vanterior
             float aTx = fTotal.x / mass;
             float aTy = fTotal.y / mass;
-            //Debug.Log(fGravity.y);
             float aTz = fTotal.z / mass;
             //Debug.Log(aTx);
             //Debug.Log(aTy);
-            //Debug.Log(aTz);
+            //Debug.Log(aTz); //no me acaba de cuadrar este numero
             //Debug.Log("Despues:" + fTotal.Module());
             //Debug.DrawLine(transform.position, transform.position + fDrag.Divide(mass), Color.blue);
             //Debug.DrawLine(transform.position, transform.position + fMagnus.Divide(mass), Color.red);
@@ -166,9 +165,9 @@ public class BallPhysics : MonoBehaviour
             lVelocityInit.x = lVelocityFin.x + aTx * Time.deltaTime;
             lVelocityInit.y = lVelocityFin.y + aTy * Time.deltaTime;
             lVelocityInit.z = lVelocityFin.z + aTz * Time.deltaTime;
-            Debug.Log("Antes" + lVelocityFin.Module());
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + (new Vector3((lVelocityFin.x*Time.deltaTime), (lVelocityFin.y * Time.deltaTime), (lVelocityFin.z * Time.deltaTime)));
-            Debug.Log("Despues" + lVelocityFin.Module());
+            //Debug.Log("Antes" + lVelocityFin.Module());
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
+            //Debug.Log("Despues" + lVelocityFin.Module());
             //Debug.Log("X :" + lVelocityInit.x);
             //Debug.Log("Y :" + lVelocityInit.y);
             //Debug.Log("Z :" + lVelocityInit.z);

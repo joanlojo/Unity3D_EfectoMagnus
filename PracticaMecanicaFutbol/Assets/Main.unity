@@ -1322,6 +1322,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 107.05168
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 0fc19e026ad6fdb4f83eb6511ee3e8f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fc19e026ad6fdb4f83eb6511ee3e8f1, type: 3}
   m_IsPrefabParent: 0
@@ -5924,7 +5928,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1133702887}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
+  m_MaxValue: 600
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
