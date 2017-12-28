@@ -128,11 +128,12 @@ public class BallPhysics : MonoBehaviour
 
             //Calcular fMagnus
             //Our_Vector3 wNorm = wVelocity
-            wVelocity.Normalize(); //ESTO ENTEORIA TIENE Q ESTAR NORMALIZADO PARA EL MAGNUS, PERO ENTONCES COMO ESTA EN EL BUCLE CUANDO APLICA LA ROTACION EL MODULO DE LA VELOCIDAD SIEMPRE SERA 1, Q ASI NO ESTARA BIEN
+            Our_Vector3 wVelocityAux = new Our_Vector3(wVelocity.x, wVelocity.y, wVelocity.z);
+            wVelocityAux.Normalize(); //ESTO ENTEORIA TIENE Q ESTAR NORMALIZADO PARA EL MAGNUS, PERO ENTONCES COMO ESTA EN EL BUCLE CUANDO APLICA LA ROTACION EL MODULO DE LA VELOCIDAD SIEMPRE SERA 1, Q ASI NO ESTARA BIEN
             //Debug.Log(wVelocity.Module());
-            fMagnus.x = Km * lVelocityInit.Module() * (wVelocity.y * lVelocityInit.z - lVelocityInit.y * wVelocity.z);
-            fMagnus.y = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.z - lVelocityInit.x * wVelocity.z);
-            fMagnus.z = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.y - lVelocityInit.x * wVelocity.y);
+            fMagnus.x = Km * lVelocityInit.Module() * (wVelocityAux.y * lVelocityInit.z - lVelocityInit.y * wVelocityAux.z);
+            fMagnus.y = Km * lVelocityInit.Module() * (wVelocityAux.x * lVelocityInit.z - lVelocityInit.x * wVelocityAux.z);
+            fMagnus.z = Km * lVelocityInit.Module() * (wVelocityAux.x * lVelocityInit.y - lVelocityInit.x * wVelocityAux.y);
             //Debug.Log("Magnus" + lVelocityInit.Module());
             //Debug.Log("Magnus x: " + fMagnus.x);
             //Debug.Log("Magnus y: " + fMagnus.y);
