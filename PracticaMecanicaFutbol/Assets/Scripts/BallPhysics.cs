@@ -138,9 +138,6 @@ public class BallPhysics : MonoBehaviour
             //Debug.Log("Magnus x: " + fMagnus.x);
             //Debug.Log("Magnus y: " + fMagnus.y);
             //Debug.Log("Magnus z: " + fMagnus.z);
-            Debug.Log(wVelocity.x);
-            Debug.Log(wVelocity.y);
-            Debug.Log(wVelocity.z);
             //Agrupar fTotal
             fTotal.x = fDrag.x + fMagnus.x + fGravity.x;//
             fTotal.y = fDrag.y + fMagnus.y + fGravity.y;//CREO QUE NO HACE FALTA
@@ -168,11 +165,10 @@ public class BallPhysics : MonoBehaviour
             //lVelocityInit = lVelocityFin.Add(a.Multiply(Time.deltaTime));
             lVelocityInit.x = lVelocityFin.x + aTx * Time.deltaTime;
             lVelocityInit.y = lVelocityFin.y + aTy * Time.deltaTime;
-            //Debug.Log("Velocidad" + lVelocityFin.y);
-            //Debug.Log("Acceleracion" + aTy);
-            //Debug.Log("time" + Time.deltaTime);
             lVelocityInit.z = lVelocityFin.z + aTz * Time.deltaTime;
-            //transform.position = new Our_Vector3(transform.position.x, transform.position.y, transform.position.z).Add(lVelocityFin.Multiply(Time.deltaTime));
+            Debug.Log("Antes" + lVelocityFin.Module());
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + (new Vector3((lVelocityFin.x*Time.deltaTime), (lVelocityFin.y * Time.deltaTime), (lVelocityFin.z * Time.deltaTime)));
+            Debug.Log("Despues" + lVelocityFin.Module());
             //Debug.Log("X :" + lVelocityInit.x);
             //Debug.Log("Y :" + lVelocityInit.y);
             //Debug.Log("Z :" + lVelocityInit.z);
