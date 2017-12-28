@@ -42,7 +42,7 @@ public class BallPhysics : MonoBehaviour
     Our_Vector3 rad = new Our_Vector3(0, 0, 0); //Este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
 
     Our_Vector3 fTotal = new Our_Vector3(0, 0, 0); //Aqui guardamos la suma de todas las fuerzas.
-
+    Our_Vector3 wNorm = new Our_Vector3(0, 0, 0);
     Quaternion q;
 
     float Area() {
@@ -102,6 +102,7 @@ public class BallPhysics : MonoBehaviour
         //Debug.Log("Y :" + lVelocityInit.y);
         //Debug.Log("Z :" + lVelocityInit.z);
         //Debug.Log(lVelocityInit.Module());
+        //wNorm = wVelocity.Normalize();
     }
 
     void Update()
@@ -111,30 +112,34 @@ public class BallPhysics : MonoBehaviour
            startKick();
             startKicked = true;
         }
-
-        if (startKicked == true){
-            //APLICAMOS LA ROTACION A LA PELOTA A PARTIR DE FTAU
-            transform.Rotate(new Vector3(fTau.x, fTau.y,fTau.z),wVelocity.Module());//PARA ROTAR PASAMOS EL EJE DE ROTACION Y EL MODULO DE HOMEGA
-            Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z),Color.black);//VEC DIRECCION IMPACTO
-            Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
-            //Calcular fDrag //CREO QUE ESTA BIEN
+        //APLICAMOS LA ROTACION A LA PELOTA A PARTIR DE FTAU         
+        transform.Rotate(new Vector3(fTau.x, fTau.y, fTau.z), wVelocity.Module());//PARA ROTAR PASAMOS EL EJE DE ROTACION Y EL MODULO DE HOMEGA
+        Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z), Color.black);//VEC DIRECCION IMPACTO
+        Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
+        if (startKicked == true){        
+            //Calcular fDrag
             fDrag.x = -Kd * lVelocityInit.Module() * lVelocityInit.x;
             fDrag.y = -Kd * lVelocityInit.Module() * lVelocityInit.y;
             fDrag.z = -Kd * lVelocityInit.Module() * lVelocityInit.z;
+            //Debug.Log("Drag" + lVelocityInit.Module());
             //Debug.Log("Drag x: " + fDrag.x);
             //Debug.Log("Drag y: " + fDrag.y);
             //Debug.Log("Drag z: " + fDrag.z);
 
             //Calcular fMagnus
-            //wVelocity.Normalize(); //ESTO ENTEORIA TIENE Q ESTAR NORMALIZADO PARA EL MAGNUS, PERO ENTONCES COMO ESTA EN EL BUCLE CUANDO APLICA LA ROTACION EL MODULO DE LA VELOCIDAD SIEMPRE SERA 1, Q ASI NO ESTARA BIEN
+            //Our_Vector3 wNorm = wVelocity
+            wVelocity.Normalize(); //ESTO ENTEORIA TIENE Q ESTAR NORMALIZADO PARA EL MAGNUS, PERO ENTONCES COMO ESTA EN EL BUCLE CUANDO APLICA LA ROTACION EL MODULO DE LA VELOCIDAD SIEMPRE SERA 1, Q ASI NO ESTARA BIEN
             //Debug.Log(wVelocity.Module());
             fMagnus.x = Km * lVelocityInit.Module() * (wVelocity.y * lVelocityInit.z - lVelocityInit.y * wVelocity.z);
             fMagnus.y = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.z - lVelocityInit.x * wVelocity.z);
             fMagnus.z = Km * lVelocityInit.Module() * (wVelocity.x * lVelocityInit.y - lVelocityInit.x * wVelocity.y);
+            //Debug.Log("Magnus" + lVelocityInit.Module());
             //Debug.Log("Magnus x: " + fMagnus.x);
             //Debug.Log("Magnus y: " + fMagnus.y);
             //Debug.Log("Magnus z: " + fMagnus.z);
-
+            Debug.Log(wVelocity.x);
+            Debug.Log(wVelocity.y);
+            Debug.Log(wVelocity.z);
             //Agrupar fTotal
             fTotal.x = fDrag.x + fMagnus.x + fGravity.x;//
             fTotal.y = fDrag.y + fMagnus.y + fGravity.y;//CREO QUE NO HACE FALTA
@@ -146,7 +151,7 @@ public class BallPhysics : MonoBehaviour
             //modificar lVelocityFin = vanterior
             float aTx = fTotal.x / mass;
             float aTy = fTotal.y / mass;
-            Debug.Log(fTotal.y);
+            //Debug.Log(fGravity.y);
             float aTz = fTotal.z / mass;
             //Debug.Log(aTx);
             //Debug.Log(aTy);
@@ -157,7 +162,7 @@ public class BallPhysics : MonoBehaviour
             //Debug.DrawLine(transform.position, transform.position + fP.Divide(mass), Color.yellow);
             //Debug.DrawLine(transform.position, transform.position + new Vector3(aTx, aTy, aTz), Color.magenta);
             //Debug.DrawLine(transform.position, transform.position + fGravity.Divide(mass), Color.magenta);
-
+            //Debug.Log("Antes" + lVelocityInit.Module());
             lVelocityFin = lVelocityInit;
             //lVelocityInit = lVelocityFin.Add(a.Multiply(Time.deltaTime));
             lVelocityInit.x = lVelocityFin.x + aTx * Time.deltaTime;
@@ -170,7 +175,7 @@ public class BallPhysics : MonoBehaviour
             //Debug.Log("X :" + lVelocityInit.x);
             //Debug.Log("Y :" + lVelocityInit.y);
             //Debug.Log("Z :" + lVelocityInit.z);
-            //Debug.Log(lVelocityInit.Module());
+            //Debug.Log("Despues" +lVelocityInit.Module());
         }         
     }
 }
