@@ -7,7 +7,7 @@ public class Colision : MonoBehaviour {
     public GameObject pelota;
 	// Use this for initialization
 	void Start () {
-        velocityP = GameObject.Find("Pelota").GetComponent<BallPhysics>().lVelocityFin;
+        velocityP = GameObject.Find("Pelota").GetComponent<BallPhysics>().lVelocityInit;
     }
 	
 	// Update is called once per frame
@@ -18,10 +18,12 @@ public class Colision : MonoBehaviour {
         Debug.DrawLine(pelota.transform.position, transform.position, Color.green);
         if(dist.Module() < 0.2)
         {
+            Debug.Log("Col");
             velocityP.x = 0;
             velocityP.y = 0;
             velocityP.z = 0;
+            
         }
-        
-	}
+        //Debug.Log(velocityP.x);
+    }
 }

@@ -13,7 +13,7 @@ public class BallPhysics : MonoBehaviour
     public Slider barra;
 
     Our_Vector3 position = new Our_Vector3(0, 0, 0);
-    Our_Vector3 lVelocityInit = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 lVelocityInit = new Our_Vector3(0, 0, 0);
     public Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
     Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
@@ -53,9 +53,9 @@ public class BallPhysics : MonoBehaviour
     {
         getKickPosition = GameObject.Find("ScriptsObject").GetComponent<GetKickPosition>().fromBallCoordinates; //Punto de impacto a la pelota respecto a su centro    
         airDensity = 1.23f;
-        Cd = 0.5f;//0.25 originalmente
-        Cm = 0.5f;
-        mass = 0.3f; //0.396f
+        Cd = 0.25f;//0.25 originalmente
+        Cm = 0.25f;
+        mass = 0.396f; //0.396f
         //radius = 0.279f; //0.279f
         dt = 0.01f; //PUEDE SER Q NECESITEMOS 2 DT
         inertiaMoment = (0.667f) * mass * (radius * radius);
