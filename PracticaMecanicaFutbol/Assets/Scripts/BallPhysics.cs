@@ -61,7 +61,7 @@ public class BallPhysics : MonoBehaviour
         inertiaMoment = (0.667f) * mass * (radius * radius);
         Kd = 0.5f * airDensity * Cd * Area();
         Km = 0.5f * airDensity * Cm * Area();
-        
+        LineRenderer myLine = gameObject.AddComponent<LineRenderer>();
     }
 
     void startKick()
@@ -103,20 +103,31 @@ public class BallPhysics : MonoBehaviour
         //Debug.Log("Z :" + lVelocityInit.z);
         //Debug.Log(lVelocityInit.Module());
         //wNorm = wVelocity.Normalize();
+        
     }
 
     void Update()
     {
+
+        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-           startKick();
+            startKick();
             startKicked = true;
         }
         //APLICAMOS LA ROTACION A LA PELOTA A PARTIR DE FTAU         
         transform.Rotate(new Vector3(fTau.x, fTau.y, fTau.z), wVelocity.Module());//PARA ROTAR PASAMOS EL EJE DE ROTACION Y EL MODULO DE HOMEGA
         Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z), Color.black);//VEC DIRECCION IMPACTO
         Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
-        if (startKicked == true){        
+
+        
+
+        if (startKicked == true){
+            
+
+
+
             //Calcular fDrag
             fDrag.x = -Kd * lVelocityInit.Module() * lVelocityInit.x;
             fDrag.y = -Kd * lVelocityInit.Module() * lVelocityInit.y;
@@ -172,6 +183,18 @@ public class BallPhysics : MonoBehaviour
             //Debug.Log("Y :" + lVelocityInit.y);
             //Debug.Log("Z :" + lVelocityInit.z);
             //Debug.Log("Despues" +lVelocityInit.Module());
+
+            LineRenderer myLine = GetComponent<LineRenderer>();
+            myLine.positionCount = 6;
+            myLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+            myLine.SetPosition(1, new Vector3(fMagnus.x, fMagnus.y, fMagnus.z));
+            myLine.SetPosition(2, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+            myLine.SetPosition(3, new Vector3(lVelocityFin.x, lVelocityFin.y, lVelocityFin.z));
+            myLine.SetPosition(4, new Vector3(transform.position.x, transform.position.y, transform.position.z));
+            myLine.SetPosition(5, new Vector3(fDrag.x, fDrag.y, fDrag.z));
+            myLine.endWidth = 0.02f;
+            myLine.startWidth = 0.02f;
+            myLine.endColor = Color.green;
         }         
     }
 }
