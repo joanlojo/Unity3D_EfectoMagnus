@@ -15,7 +15,7 @@ public class BallPhysics : MonoBehaviour
     Our_Vector3 position = new Our_Vector3(0, 0, 0);
     public Our_Vector3 lVelocityInit = new Our_Vector3(0, 0, 0);
     public Our_Vector3 lVelocityFin = new Our_Vector3(0, 0, 0);
-    Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 wVelocity = new Our_Vector3(0, 0, 0);
     float mass;
     float radius = 0.279f;
 
@@ -35,8 +35,8 @@ public class BallPhysics : MonoBehaviour
 
     Our_Vector3 fDrag = new Our_Vector3(0, 0, 0);
     Our_Vector3 fMagnus = new Our_Vector3(0, 0, 0);
-    Our_Vector3 fGravity;
-    Our_Vector3 fTau = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 fGravity = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 fTau = new Our_Vector3(0, 0, 0);
     Our_Vector3 fP = new Our_Vector3(0, 0, 0);
     Our_Vector3 dirfP = new Our_Vector3(0, 0, 0);
     Our_Vector3 rad = new Our_Vector3(0, 0, 0); //Este vector es el que necesitamos para fTau, es entre el centro y el punto de impacto
@@ -77,9 +77,9 @@ public class BallPhysics : MonoBehaviour
         rad.z = getKickPosition.z - transform.position.z;
 
         //fP.module = barra.value;// FUERZA TOTAL DE FP    
-        dirfP.x = (getKickPosition.x - VectorDireccion.position.x);//CREO Q ESTA BIEN
-        dirfP.y = (getKickPosition.y - VectorDireccion.position.y);//ESTO TE DA LA DIRECCION DEL VECTOR, PERO NO FP
-        dirfP.z = (getKickPosition.z - VectorDireccion.position.z);//
+        dirfP.x = (getKickPosition.x - VectorDireccion.position.x);
+        dirfP.y = (getKickPosition.y - VectorDireccion.position.y);
+        dirfP.z = (getKickPosition.z - VectorDireccion.position.z);
 
         //FP EN SUS COMPONENTES 
         dirfP.Normalize();

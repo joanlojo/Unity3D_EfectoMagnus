@@ -4383,7 +4383,7 @@ Prefab:
     - target: {fileID: 2300000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 00b4312c15a8a294dbdf13fabbda8537, type: 2}
+      objectReference: {fileID: 2100000, guid: 46bfa33f916ddde439b81ea3c01b1a02, type: 2}
     - target: {fileID: 400000, guid: 70f145abed0b4ae48acf34cbafba0570, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
@@ -4848,7 +4848,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1301367008}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66b79860843772e4b9c3c2187db35d28, type: 3}
   m_Name: 
@@ -5942,7 +5942,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1133702887}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 600
+  m_MaxValue: 700
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
