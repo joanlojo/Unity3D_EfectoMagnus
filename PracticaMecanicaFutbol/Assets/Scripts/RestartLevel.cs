@@ -7,7 +7,7 @@ public class RestartLevel : MonoBehaviour {
 
     public GameObject pelota;
     public string levelName;
-    GameObject myLine = new GameObject();
+   // GameObject myLine = new GameObject();
 	// Use this for initialization
 	void Start () {
 		
@@ -37,7 +37,7 @@ public class RestartLevel : MonoBehaviour {
         }
 
 
-        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        //LineRenderer lr = myLine.GetComponent<LineRenderer>();
         
 
     }
