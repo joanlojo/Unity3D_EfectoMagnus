@@ -72,10 +72,9 @@ public class BallPhysics : MonoBehaviour
         fDrag = new Our_Vector3(0, 0, 0);
         fTau = new Our_Vector3(0, 0, 0);
 
-        rad.x = getKickPosition.x - transform.position.x;// NO ESTOY 100% DE QUE ESTO ESTE BIEN
-        rad.y = getKickPosition.y - transform.position.y;// VECTOR ENTRE EL CENTRO DE LA PELOTA Y EL PUNTO DE IMPACTO
-        rad.z = getKickPosition.z - transform.position.z;//
-        //Debug.Log(rad.Module());
+        rad.x = getKickPosition.x - transform.position.x;
+        rad.y = getKickPosition.y - transform.position.y;
+        rad.z = getKickPosition.z - transform.position.z;
 
         //fP.module = barra.value;// FUERZA TOTAL DE FP    
         dirfP.x = (getKickPosition.x - VectorDireccion.position.x);//CREO Q ESTA BIEN
@@ -84,33 +83,25 @@ public class BallPhysics : MonoBehaviour
 
         //FP EN SUS COMPONENTES 
         dirfP.Normalize();
-        fP.x = dirfP.x * barra.value;//CREO Q ESTA BIEN
+        fP.x = dirfP.x * barra.value;
         fP.y = dirfP.y * barra.value;
         fP.z = dirfP.z * barra.value;
         //Calcular direccion Tau
-        fTau = rad.CrossProduct(fP);//CREO QUE ESTA BIEN
+        fTau = rad.CrossProduct(fP);
        
         //Calcular wVelocity (Inicial)
         wVelocity.x = fTau.x / inertiaMoment * dt;
         wVelocity.y = fTau.y / inertiaMoment * dt;
+
         wVelocity.z = fTau.z / inertiaMoment * dt;
         //Calcular lVelocity (Inicial)
-        lVelocityInit.x = (fP.x * dt) / mass;//aqui el dt puede ser q sea otro
+        lVelocityInit.x = (fP.x * dt) / mass;
         lVelocityInit.y = (fP.y * dt) / mass;
-        lVelocityInit.z = (fP.z * dt) / mass;
-        //Debug.Log("X :" + lVelocityInit.x);
-        //Debug.Log("Y :" + lVelocityInit.y);
-        //Debug.Log("Z :" + lVelocityInit.z);
-        //Debug.Log(lVelocityInit.Module());
-        //wNorm = wVelocity.Normalize();
-        
+        lVelocityInit.z = (fP.z * dt) / mass;     
     }
 
     void Update()
     {
-
-        
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             startKick();
@@ -121,68 +112,32 @@ public class BallPhysics : MonoBehaviour
         Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, transform.position.z), new Vector3(VectorDireccion.position.x, VectorDireccion.position.y, VectorDireccion.position.z), Color.black);//VEC DIRECCION IMPACTO
         Debug.DrawRay(transform.position, new Vector3(fTau.x, fTau.y, fTau.z), Color.black);//VECTOR DIR HOMEGA, EJE DE ROTACION
 
-        
-
         if (startKicked == true){
-            
-
-
-
-            //Calcular fDrag
+           //Calcular fDrag
             fDrag.x = -Kd * lVelocityInit.Module() * lVelocityInit.x;
             fDrag.y = -Kd * lVelocityInit.Module() * lVelocityInit.y;
             fDrag.z = -Kd * lVelocityInit.Module() * lVelocityInit.z;
-            //bug.Log("Drag" + lVelocityInit.Module());
-            //Debug.Log("Drag x: " + fDrag.x);
-            //Debug.Log("Drag y: " + fDrag.y);
-            //Debug.Log("Drag z: " + fDrag.z);
-
             //Calcular fMagnus
-            //Our_Vector3 wNorm = wVelocity
             Our_Vector3 wVelocityAux = new Our_Vector3(wVelocity.x, wVelocity.y, wVelocity.z);
-            wVelocityAux.Normalize(); //ESTO ENTEORIA TIENE Q ESTAR NORMALIZADO PARA EL MAGNUS, PERO ENTONCES COMO ESTA EN EL BUCLE CUANDO APLICA LA ROTACION EL MODULO DE LA VELOCIDAD SIEMPRE SERA 1, Q ASI NO ESTARA BIEN
-            //Debug.Log(wVelocity.Module());
+            wVelocityAux.Normalize(); 
             fMagnus.x = Km * lVelocityInit.Module() * (wVelocityAux.y * lVelocityInit.z - lVelocityInit.y * wVelocityAux.z);
             fMagnus.y = Km * lVelocityInit.Module() * (wVelocityAux.x * lVelocityInit.z - lVelocityInit.x * wVelocityAux.z);
             fMagnus.z = Km * lVelocityInit.Module() * (wVelocityAux.x * lVelocityInit.y - lVelocityInit.x * wVelocityAux.y);
-            //Debug.Log("Magnus" + lVelocityInit.Module());
-            //Debug.Log("Magnus x: " + fMagnus.x);
-            //Debug.Log("Magnus y: " + fMagnus.y);
-            //Debug.Log("Magnus z: " + fMagnus.z);
+
             //Agrupar fTotal
-            fTotal.x = fDrag.x + fMagnus.x + fGravity.x;//
-            fTotal.y = fDrag.y + fMagnus.y + fGravity.y;//CREO QUE NO HACE FALTA
-            fTotal.z = fDrag.z + fMagnus.z + fGravity.z;//
-            //Debug.Log("Antes:" + fTotal.Module());
+            fTotal.x = fDrag.x + fMagnus.x + fGravity.x;
+            fTotal.y = fDrag.y + fMagnus.y + fGravity.y;
+            fTotal.z = fDrag.z + fMagnus.z + fGravity.z;
             //ACTUALIZAR lVelocityInit A PARTIR DE LAS NUEVAS FORUMLAS CON EL METODO DE EULER   
-            //vanterior = lVelocityFin
-            //act v anterior
-            //modificar lVelocityFin = vanterior
             float aTx = fTotal.x / mass;
             float aTy = fTotal.y / mass;
             float aTz = fTotal.z / mass;
-            //Debug.Log(aTx);
-            //Debug.Log(aTy);
-            //Debug.Log(aTz); //no me acaba de cuadrar este numero
-            //Debug.Log("Despues:" + fTotal.Module());
-            //Debug.DrawLine(transform.position, transform.position + fDrag.Divide(mass), Color.blue);
-            //Debug.DrawLine(transform.position, transform.position + fMagnus.Divide(mass), Color.red);
-            //Debug.DrawLine(transform.position, transform.position + fP.Divide(mass), Color.yellow);
-            //Debug.DrawLine(transform.position, transform.position + new Vector3(aTx, aTy, aTz), Color.magenta);
-            //Debug.DrawLine(transform.position, transform.position + fGravity.Divide(mass), Color.magenta);
             //Debug.Log("Antes" + lVelocityInit.Module());
             lVelocityFin = lVelocityInit;
-            //lVelocityInit = lVelocityFin.Add(a.Multiply(Time.deltaTime));
             lVelocityInit.x = lVelocityFin.x + aTx * Time.deltaTime;
             lVelocityInit.y = lVelocityFin.y + aTy * Time.deltaTime;
             lVelocityInit.z = lVelocityFin.z + aTz * Time.deltaTime;
-            //Debug.Log("Antes" + lVelocityFin.Module());
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
-            //Debug.Log("Despues" + lVelocityFin.Module());
-            //Debug.Log("X :" + lVelocityInit.x);
-            //Debug.Log("Y :" + lVelocityInit.y);
-            //Debug.Log("Z :" + lVelocityInit.z);
-            //Debug.Log("Despues" +lVelocityInit.Module());
 
             LineRenderer myLine = GetComponent<LineRenderer>();
             myLine.positionCount = 6;

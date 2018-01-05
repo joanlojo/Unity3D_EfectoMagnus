@@ -29,29 +29,27 @@ public class GetKickPosition : MonoBehaviour {
 			}
 		}
 
-        //Esto no funciona con Our_Vector3 por como funciona el .Rotate internamente
-        //Habra que mirarlo mejor o implementarlo de forma distinta
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            Vector3 rot = new Vector3(0, 0.01f, 0);
+            Our_Vector3 rot = new Our_Vector3(0, 0.1f, 0);
             VectorDireccion.transform.Translate(rot);
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            Vector3 rot = new Vector3(0, -0.01f, 0);
+            Our_Vector3 rot = new Our_Vector3(0, -0.01f, 0);
             VectorDireccion.transform.Translate(rot);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Vector3 rot = new Vector3(0 , 0, -0.01f);
+            Our_Vector3 rot = new Our_Vector3(0 , 0, -0.01f);
             VectorDireccion.transform.Translate(rot);
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            Vector3 rot = new Vector3( 0, 0, 0.01f);
+            Our_Vector3 rot = new Our_Vector3( 0, 0, 0.01f);
             VectorDireccion.transform.Translate(rot);
         }
     }
