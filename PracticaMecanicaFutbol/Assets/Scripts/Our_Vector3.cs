@@ -84,22 +84,14 @@ public class Our_Quaternion {
 
     public void Multiply(Our_Quaternion b)
     {
-        float tempW, tempX, tempY, tempZ;
-
-        
+        float tempW, tempX, tempY, tempZ;     
         tempW = (w * b.w) - (x * b.x) - (y * b.y) - (z * b.z);  // w
         tempX = (w* b.x) + (x * b.w) - (y * b.z) + (z * b.y);  // x
         tempY = (w* b.y) + (x * b.y) + (y * b.w) - (z * b.x);  // y
         tempZ = (w* b.z) - (x * b.y) + (y * b.x) + (z * b.w);  // z
-
         w = tempW;
         x = tempX;
         y = tempY;
         z = tempZ;
-
-
-
-
     }
-    //Creo que no nesecitamos metodos porque no operamos con quaternions, solo aplicamos a la rotacion del objeto  un quaternion, no sumamos quaternions entre ellos ni nada.
 }

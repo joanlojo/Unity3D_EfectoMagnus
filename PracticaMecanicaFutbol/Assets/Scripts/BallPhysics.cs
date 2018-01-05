@@ -137,7 +137,8 @@ public class BallPhysics : MonoBehaviour
             lVelocityInit.x = lVelocityFin.x + aTx * Time.deltaTime;
             lVelocityInit.y = lVelocityFin.y + aTy * Time.deltaTime;
             lVelocityInit.z = lVelocityFin.z + aTz * Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) 
+                + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
 
             LineRenderer myLine = GetComponent<LineRenderer>();
             myLine.positionCount = 6;
