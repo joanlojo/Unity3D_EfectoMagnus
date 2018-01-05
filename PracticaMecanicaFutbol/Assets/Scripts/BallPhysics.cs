@@ -61,12 +61,12 @@ public class BallPhysics : MonoBehaviour
         inertiaMoment = (0.667f) * mass * (radius * radius);
         Kd = 0.5f * airDensity * Cd * Area();
         Km = 0.5f * airDensity * Cm * Area();
-        LineRenderer myLine = gameObject.AddComponent<LineRenderer>();
+       
     }
 
     void startKick()
     {
-       
+        LineRenderer myLine = gameObject.AddComponent<LineRenderer>();
         fGravity = new Our_Vector3(0, -mass * gravity,0);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);

@@ -13,6 +13,6 @@ public class BodyFollowBall : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Pelota.position.z < 0.75f && Pelota.position.z > -0.75f) { transform.position = new Vector3(-5.36f, -1.12f, Pelota.position.z); }
+        if (Pelota.position.z < 1.75f && Pelota.position.z > -1.75f) { transform.position = new Vector3(-5.36f, -1.12f, Pelota.position.z); }
 	}
 }

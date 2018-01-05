@@ -19,7 +19,7 @@ public class DrawVectorDirection : MonoBehaviour {
             myLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z));
             myLine.SetPosition(1, new Vector3(pelota.position.x, pelota.position.y, pelota.position.z));
             myLine.endWidth = 0.02f;
-            myLine.startWidth = 0.02f;
+            myLine.startWidth = 0.001f;
             myLine.endColor = Color.red;
             myLine.startColor = Color.red;
         }

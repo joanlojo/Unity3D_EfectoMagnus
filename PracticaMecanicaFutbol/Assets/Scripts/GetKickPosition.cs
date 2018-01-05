@@ -27,7 +27,7 @@ public class GetKickPosition : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            Our_Vector3 rot = new Our_Vector3(0, 0.1f, 0);
+            Our_Vector3 rot = new Our_Vector3(0, 0.01f, 0);
             VectorDireccion.transform.Translate(rot);
         }
 
