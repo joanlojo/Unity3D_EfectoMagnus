@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RestartLevel : MonoBehaviour {
 
-    public GameObject pelota;
+    public Transform pelota;
     public string levelName;
    // GameObject myLine = new GameObject();
 	// Use this for initialization
