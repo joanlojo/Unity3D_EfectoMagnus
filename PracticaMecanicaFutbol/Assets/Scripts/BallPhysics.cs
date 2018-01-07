@@ -33,8 +33,8 @@ public class BallPhysics : MonoBehaviour
     public Our_Vector3 getKickPosition;
     Our_Vector3 puntoDeImpacto = new Our_Vector3(0, 0, 0);
 
-    Our_Vector3 fDrag = new Our_Vector3(0, 0, 0);
-    Our_Vector3 fMagnus = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 fDrag = new Our_Vector3(0, 0, 0);
+    public Our_Vector3 fMagnus = new Our_Vector3(0, 0, 0);
     public Our_Vector3 fGravity = new Our_Vector3(0, 0, 0);
     public Our_Vector3 fTau = new Our_Vector3(0, 0, 0);
     Our_Vector3 fP = new Our_Vector3(0, 0, 0);
@@ -66,7 +66,7 @@ public class BallPhysics : MonoBehaviour
 
     void startKick()
     {
-        LineRenderer myLine = gameObject.AddComponent<LineRenderer>();
+        //LineRenderer myLine = gameObject.AddComponent<LineRenderer>();
         fGravity = new Our_Vector3(0, -mass * gravity,0);
         fMagnus = new Our_Vector3(0, 0, 0);
         fDrag = new Our_Vector3(0, 0, 0);
@@ -140,7 +140,7 @@ public class BallPhysics : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) 
                 + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
 
-            LineRenderer myLine = GetComponent<LineRenderer>();
+            /*LineRenderer myLine = GetComponent<LineRenderer>();
             myLine.positionCount = 6;
             myLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z));
             myLine.SetPosition(1, new Vector3(fMagnus.x, fMagnus.y, fMagnus.z));
@@ -150,7 +150,7 @@ public class BallPhysics : MonoBehaviour
             myLine.SetPosition(5, new Vector3(fDrag.x, fDrag.y, fDrag.z));
             myLine.endWidth = 0.02f;
             myLine.startWidth = 0.02f;
-            myLine.endColor = Color.green;
+            myLine.endColor = Color.green;*/
         }         
     }
 }
