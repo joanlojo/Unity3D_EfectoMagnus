@@ -139,18 +139,6 @@ public class BallPhysics : MonoBehaviour
             lVelocityInit.z = lVelocityFin.z + aTz * Time.deltaTime;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z) 
                 + new Vector3(lVelocityFin.x, lVelocityFin.y,lVelocityFin.z) * Time.deltaTime;
-
-            /*LineRenderer myLine = GetComponent<LineRenderer>();
-            myLine.positionCount = 6;
-            myLine.SetPosition(0, new Vector3(transform.position.x, transform.position.y, transform.position.z));
-            myLine.SetPosition(1, new Vector3(fMagnus.x, fMagnus.y, fMagnus.z));
-            myLine.SetPosition(2, new Vector3(transform.position.x, transform.position.y, transform.position.z));
-            myLine.SetPosition(3, new Vector3(lVelocityFin.x, lVelocityFin.y, lVelocityFin.z));
-            myLine.SetPosition(4, new Vector3(transform.position.x, transform.position.y, transform.position.z));
-            myLine.SetPosition(5, new Vector3(fDrag.x, fDrag.y, fDrag.z));
-            myLine.endWidth = 0.02f;
-            myLine.startWidth = 0.02f;
-            myLine.endColor = Color.green;*/
         }         
     }
 }

@@ -13,6 +13,7 @@ public class getVariable : MonoBehaviour {
     private Our_Vector3 LINE_lVelocityFin = new Our_Vector3(0, 0, 0);
     private Our_Vector3 LINE_fMagnus = new Our_Vector3(0, 0, 0);
     private Our_Vector3 LINE_fDrag = new Our_Vector3(0, 0, 0);
+    private Our_Vector3 LINE_fTau = new Our_Vector3(0, 0, 0);
 
     // Use this for initialization
     void Start () {
@@ -35,6 +36,11 @@ public class getVariable : MonoBehaviour {
             LINE_fDrag = scriptToAccess.fDrag;
             transform.position = new Vector3(LINE_fDrag.x, LINE_fDrag.y, LINE_fDrag.z);
         }
+        if (VariableToGet == 3)
+        {
+            LINE_fTau = scriptToAccess.fTau;
+            transform.position = new Vector3(LINE_fTau.x, LINE_fTau.y, LINE_fTau.z);
+        }
 
     }
 	
@@ -49,13 +55,18 @@ public class getVariable : MonoBehaviour {
         if (VariableToGet == 1)
         {
             LINE_fMagnus = scriptToAccess.fMagnus;
-            transform.position = new Vector3(-LINE_fMagnus.x, -LINE_fMagnus.y, -LINE_fMagnus.z);
+            transform.position = new Vector3(LINE_fMagnus.x, LINE_fMagnus.y, LINE_fMagnus.z);
         }
 
         if (VariableToGet == 2)
         {
             LINE_fDrag = scriptToAccess.fDrag;
             transform.position = new Vector3(LINE_fDrag.x, LINE_fDrag.y, LINE_fDrag.z);
+        }
+        if (VariableToGet == 3)
+        {
+            LINE_fTau = scriptToAccess.fTau;
+            transform.position = new Vector3(LINE_fTau.x, LINE_fTau.y, LINE_fTau.z);
         }
     }
 }
